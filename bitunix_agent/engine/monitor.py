@@ -90,6 +90,14 @@ class Monitor:
                         self.db.update_trailing_best(t["position_id"], float(best))
                         cb = D(t["callback_pct"]) / 100
                         sl = best * (1 - cb) if long else best * (1 + cb)
+                        # A trailing stop only ever TIGHTENS. Never move an existing stop (e.g. breakeven) backwards.
+                        try:
+                            cur = await self.engine.current_stop(t["symbol"], t["position_id"])
+                        except Exception:
+                            log.warning("trailing: could not read current SL for %s, skipping this tick", t["position_id"])
+                            continue
+                        if cur is not None and ((long and sl <= cur) or (not long and sl >= cur)):
+                            continue
                         res = await self.engine.set_tpsl(symbol=t["symbol"], position_id=t["position_id"], stop_loss=sl)
                         if res.get("ok"):
                             log.info("trailing SL %s -> %s", t["position_id"], sl)

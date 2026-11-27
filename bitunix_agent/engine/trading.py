@@ -401,6 +401,12 @@ class TradingEngine:
         res = await self.rest.place_tpsl_order(**args)
         return {"ok": True, "method": "place_tpsl_order", "qty": fmt_decimal(q), "result": res}
 
+    async def current_stop(self, symbol: str, position_id: str) -> Decimal | None:
+        """The stop-loss price currently protecting the whole position (position TP/SL), or None."""
+        orders = await self.rest.get_pending_tpsl_orders(symbol=normalize_symbol(symbol), positionId=position_id) or []
+        stops = [D(o["slPrice"]) for o in orders if o.get("slPrice") not in (None, "", "0") and not o.get("slQty")]
+        return stops[0] if stops else None
+
     async def move_stop_to_breakeven(self, symbol: str, side: str | None = None, offset_pct: float = 0.05) -> dict:
         pos = await self.find_position(symbol, side)
         if not pos:
