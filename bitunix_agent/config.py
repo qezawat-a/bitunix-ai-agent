@@ -69,6 +69,23 @@ def _api_port() -> int:
     return 8080
 
 
+def _api_host() -> str:
+    """Address to listen on. Must be a local interface; a domain name here (a common mistake) would crash the server,
+    so anything that isn't an IP or localhost falls back to 0.0.0.0."""
+    v = (os.getenv("API_HOST") or "").split("#")[0].strip()
+    if not v:
+        return "0.0.0.0"
+    import ipaddress
+    try:
+        ipaddress.ip_address(v)
+        return v
+    except ValueError:
+        if v != "localhost":
+            print(f"API_HOST={v} is a domain, not a listen address. Listening on 0.0.0.0 instead (your domain still works).")
+            return "0.0.0.0"
+        return v
+
+
 @dataclass
 class Settings:
     # ---------------- Bitunix
@@ -109,7 +126,7 @@ class Settings:
     slack_bot_token: str = field(default_factory=lambda: os.getenv("SLACK_BOT_TOKEN", ""))
     slack_app_token: str = field(default_factory=lambda: os.getenv("SLACK_APP_TOKEN", ""))
     slack_allowed_users: list[str] = field(default_factory=lambda: _list("SLACK_ALLOWED_USER_IDS"))
-    api_host: str = field(default_factory=lambda: os.getenv("API_HOST", "0.0.0.0"))
+    api_host: str = field(default_factory=lambda: _api_host())
     api_port: int = field(default_factory=lambda: _api_port())
     api_token: str = field(default_factory=lambda: os.getenv("API_TOKEN", ""))
 
