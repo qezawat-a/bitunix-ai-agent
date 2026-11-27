@@ -80,7 +80,7 @@ class Monitor:
                         self.db.stop_trailing(t["position_id"])
                         continue
                     price = await self.engine.mark_price(t["symbol"])
-                    long = t["side"] == "LONG"
+                    long = str(t["side"]).upper() in ("LONG", "BUY")
                     if t["activation_price"] and ((long and price < D(t["activation_price"])) or (not long and price > D(t["activation_price"]))):
                         continue
                     best = D(t["best_price"]) if t["best_price"] else price

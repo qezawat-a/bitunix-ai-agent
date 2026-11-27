@@ -40,6 +40,15 @@ def direction(x: str) -> str:
     raise ValueError(f"direction must be LONG or SHORT, got {x!r}")
 
 
+def pos_is_long(pos: dict) -> bool:
+    """A live HEDGE position reports side BUY for a long (docs say LONG); accept both, like agentic-ai-trader's roi_pct."""
+    return str(pos.get("side") or "").upper() in ("LONG", "BUY")
+
+
+def pos_direction(pos: dict) -> str:
+    return "LONG" if pos_is_long(pos) else "SHORT"
+
+
 class TradingEngine:
     def __init__(self, rest: BitunixREST, ws: BitunixWS | None, settings: Settings, risk: RiskManager | None = None):
         self.rest = rest
@@ -65,7 +74,7 @@ class TradingEngine:
         if position_id:
             return next((p for p in ps if str(p["positionId"]) == str(position_id)), None)
         if side:
-            ps = [p for p in ps if p.get("side") == direction(side)]
+            ps = [p for p in ps if pos_direction(p) == direction(side)]
         return ps[0] if len(ps) == 1 else (max(ps, key=lambda p: abs(D(p.get("qty", 0)))) if ps else None)
 
     async def mark_price(self, symbol: str) -> Decimal:
@@ -303,7 +312,7 @@ class TradingEngine:
         q = min(rules.round_qty(q, "down"), pqty)
         if q <= 0:
             return {"ok": False, "problems": [f"close qty rounds to 0 (basePrecision {rules.base_precision})"]}
-        is_long = pos["side"] == "LONG"
+        is_long = pos_is_long(pos)
         common: dict[str, Any] = {"symbol": symbol, "qty": q, "orderType": order_type.upper()}
         if order_type.upper() == "LIMIT":
             common["price"] = rules.round_price(price)
@@ -322,7 +331,7 @@ class TradingEngine:
         if not pos:
             return {"ok": False, "problems": ["no position to reverse"]}
         closed = await self.close_position(symbol=symbol, position_id=pos["positionId"])
-        new_side = "SHORT" if pos["side"] == "LONG" else "LONG"
+        new_side = "SHORT" if pos_is_long(pos) else "LONG"
         opened = await self.open_position(symbol=symbol, side=new_side, qty=pos["qty"], leverage=int(pos.get("leverage") or 0) or None)
         return {"ok": True, "closed": closed, "opened": opened}
 
@@ -341,7 +350,7 @@ class TradingEngine:
         mark = await self.mark_price(symbol)
         tp = rules.round_price(take_profit) if take_profit is not None else None
         sl = rules.round_price(stop_loss) if stop_loss is not None else None
-        problems = self.check_tpsl(pos["side"], mark, tp, sl, pos.get("liqPrice"))
+        problems = self.check_tpsl(pos_direction(pos), mark, tp, sl, pos.get("liqPrice"))
         if problems:
             return {"ok": False, "stage": "preflight", "problems": problems, "mark_price": str(mark), "position": pos}
         pid = pos["positionId"]
@@ -392,7 +401,7 @@ class TradingEngine:
             return {"ok": False, "problems": ["no position"]}
         entry = D(pos.get("avgOpenPrice") or D(pos["entryValue"]) / D(pos["qty"]))
         off = entry * D(offset_pct) / 100
-        sl = entry + off if pos["side"] == "LONG" else entry - off
+        sl = entry + off if pos_is_long(pos) else entry - off
         return await self.set_tpsl(symbol=symbol, position_id=pos["positionId"], stop_loss=sl)
 
     # ------------------------------------------------------------------ ladders

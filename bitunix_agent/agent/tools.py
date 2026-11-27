@@ -20,6 +20,7 @@ from typing import Any, Awaitable, Callable
 from ..exchange.errors import BitunixAPIError, BitunixNetworkError, ValidationError
 from ..exchange.spec_generated import SPEC
 from ..exchange.symbols import normalize_symbol
+from ..engine.trading import pos_direction
 from ..exchange.ws_spec import WS_CHANNELS
 
 JSON_T = {"string": "string", "int": "integer", "bool": "boolean", "list": "array"}
@@ -186,7 +187,7 @@ def build_tools() -> dict[str, Tool]:
         pos = await ctx.services.engine.find_position(symbol, side)
         if not pos:
             return {"ok": False, "problems": ["no open position"]}
-        ctx.services.db.set_trailing(pos["positionId"], ctx.chat_id, normalize_symbol(symbol), pos["side"], callback_pct, activation_price)
+        ctx.services.db.set_trailing(pos["positionId"], ctx.chat_id, normalize_symbol(symbol), pos_direction(pos), callback_pct, activation_price)
         return {"ok": True, "trailing": {"positionId": pos["positionId"], "callback_pct": callback_pct, "activation_price": activation_price}}
 
     @add("stop_trailing_stop", "Stop trailing for a position.", _obj({"position_id": S}, ["position_id"]))
