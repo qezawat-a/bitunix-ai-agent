@@ -157,6 +157,7 @@ def build_app(agent) -> Starlette:
             clients.discard(ws)
 
     routes = [
+        Route("/", health),
         Route("/health", health),
         Route("/v1/chat", guarded(chat), methods=["POST"]),
         Route("/v1/overview", guarded(overview)),
