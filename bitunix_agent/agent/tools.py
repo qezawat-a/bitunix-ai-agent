@@ -369,6 +369,11 @@ def build_tools() -> dict[str, Tool]:
          _obj({"enabled": B}, ["enabled"]))
     async def _dry(ctx, enabled):
         ctx.services.rest.dry_run = bool(enabled)
+        try:  # remember it across restarts
+            from ..extensions.store import SettingsStore
+            SettingsStore(ctx.services.settings.db_path).set("DRY_RUN", "true" if enabled else "false")
+        except Exception:
+            pass
         return {"ok": True, "dry_run": ctx.services.rest.dry_run}
 
     @add("set_confirmation_mode", "always = ask before every trade, never = execute directly, above = only above CONFIRM_ABOVE_NOTIONAL USDT.",

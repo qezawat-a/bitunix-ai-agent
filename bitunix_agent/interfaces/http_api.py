@@ -45,6 +45,10 @@ async def _body(req: Request) -> dict:
     return d if isinstance(d, dict) else {"value": d}
 
 
+def _local(host: str) -> bool:
+    return host in ("127.0.0.1", "::1", "localhost", "testclient")
+
+
 def build_app(agent) -> Starlette:
     token = agent.settings.api_token
     clients: set[WebSocket] = set()
@@ -72,6 +76,9 @@ def build_app(agent) -> Starlette:
         async def handler(req: Request):
             if token and req.headers.get("authorization", "") != f"Bearer {token}":
                 return _json({"detail": "bad token"}, 401)
+            if not token and not _local(req.client.host if req.client else ""):
+                # The API can run code (run_shell etc.), so without API_TOKEN it only answers this device.
+                return _json({"detail": "API_TOKEN is not set: remote access is off. Set it in chat: set API_TOKEN=a-long-secret"}, 401)
             try:
                 return _json(await fn(req))
             except Exception as e:  # never a bare 500: return the reason so the app can show it
@@ -128,7 +135,7 @@ def build_app(agent) -> Starlette:
         return agent.db.journal_rows(limit)
 
     async def stream(ws: WebSocket):
-        if token and ws.query_params.get("token", "") != token:
+        if (token and ws.query_params.get("token", "") != token) or (not token and not _local(ws.client.host if ws.client else "")):
             await ws.close(code=4401)
             return
         await ws.accept()

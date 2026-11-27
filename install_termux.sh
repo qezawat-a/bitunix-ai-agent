@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 pkg update -y && pkg upgrade -y
-pkg install -y python
+pkg install -y python git
 python -m pip install --upgrade pip
 export AIOHTTP_NO_EXTENSIONS=1 MULTIDICT_NO_EXTENSIONS=1 YARL_NO_EXTENSIONS=1 FROZENLIST_NO_EXTENSIONS=1 PROPCACHE_NO_EXTENSIONS=1 BUILD_EXTENSION=no
 python -m pip install -r requirements.txt

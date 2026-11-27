@@ -41,7 +41,15 @@ class SlackInterface:
 
     async def _handle(self, event, say):
         user = event.get("user", "")
-        if self.allowed and user not in self.allowed:
+        allowed = set(self.agent.settings.slack_allowed_users) or self.allowed
+        owner_note = ""
+        if not allowed and user:
+            # First person to talk to J-Rock becomes the owner (saved; no .env needed).
+            self.agent.store.set("SLACK_ALLOWED_USER_IDS", user)
+            self.agent.reload_settings("SLACK_ALLOWED_USER_IDS")
+            self.allowed = {user}
+            owner_note = f"You're my owner now (Slack member ID {user}). Only you can use me.\n\n"
+        elif allowed and user not in allowed:
             await say(f"Not authorized (user {user}).")
             return
         text = re.sub(r"<@[A-Z0-9]+>", "", event.get("text", "")).strip()
@@ -51,7 +59,7 @@ class SlackInterface:
         chat_id = f"slack:{event['channel']}"
         self.agent.db.register_chat(chat_id, "slack", event["channel"])
         thread = event.get("thread_ts") or event.get("ts")
-        reply = to_slack_markdown(await self.agent.chat(chat_id, text))
+        reply = owner_note + to_slack_markdown(await self.agent.chat(chat_id, text))
         await say(text=reply, thread_ts=thread if event.get("channel_type") != "im" else None)
 
     async def notify(self, chat_id: str, text: str):

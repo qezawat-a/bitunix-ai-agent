@@ -69,6 +69,9 @@ async def serve(agent: Agent):
         except Exception as e:
             logging.exception("Slack failed to start: %s", e)
             print("Slack NOT started:", e)
+    if not runners:
+        print("No Telegram/Slack token yet. Chat in the terminal with: python -m bitunix_agent --cli\n"
+              "then send: set TELEGRAM_BOT_TOKEN=... (or SLACK_BOT_TOKEN / SLACK_APP_TOKEN) and restart.")
     import uvicorn
     from .interfaces.http_api import build_app
     server = uvicorn.Server(uvicorn.Config(build_app(agent), host=settings.api_host, port=settings.api_port, log_level="info"))
@@ -95,6 +98,12 @@ async def main():
     # httpx logs every request URL at INFO, and Telegram's URL contains the bot token. Keep tokens out of logs.
     for noisy in ("httpx", "httpcore", "telegram", "telegram.ext", "slack_bolt", "slack_sdk", "websockets", "aiohttp"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
+    # Settings changed from chat (set NAME=value) override .env, so .env is optional.
+    global settings
+    from .config import Settings
+    from .extensions.store import apply_overrides
+    if apply_overrides():
+        settings = Settings()
     agent = Agent(settings)
     try:
         if a.check:

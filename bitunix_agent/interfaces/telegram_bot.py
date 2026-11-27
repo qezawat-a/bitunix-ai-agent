@@ -51,12 +51,22 @@ class TelegramInterface:
         self.app.add_handler(CommandHandler("kill", self.cmd("Turn the kill switch ON (pause new positions) and show risk status.")))
         self.app.add_handler(CommandHandler("dryrun", self.dryrun))
         self.app.add_handler(CommandHandler("reset", self.cmd("/reset")))
+        for c in ("set", "settings", "restart"):
+            self.app.add_handler(CommandHandler(c, self.on_text))
         self.app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.on_text))
         agent.add_notifier(self.notify)
 
     def ok(self, update: Update) -> bool:
         uid = str(update.effective_user.id)
-        if self.allowed and uid not in self.allowed:
+        allowed = set(self.agent.settings.telegram_allowed_users) or self.allowed
+        if not allowed:
+            # No allow-list yet: the first person who talks to the bot becomes its owner (saved; no .env needed).
+            self.agent.store.set("TELEGRAM_ALLOWED_USER_IDS", uid)
+            self.agent.reload_settings("TELEGRAM_ALLOWED_USER_IDS")
+            self.allowed = {uid}
+            self._new_owner = uid
+            return True
+        if uid not in allowed:
             log.warning("blocked telegram user %s", uid)
             return False
         return True
@@ -94,6 +104,9 @@ class TelegramInterface:
         async def progress(_names):
             await update.effective_chat.send_action(ChatAction.TYPING)
         reply = await self.agent.chat(chat_id, text, progress)
+        if getattr(self, "_new_owner", None):
+            reply = f"You're my owner now (Telegram id {self._new_owner}). Only you can use me.\n\n" + reply
+            self._new_owner = None
         for part in chunks(reply):
             await update.message.reply_text(part)
 

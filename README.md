@@ -112,3 +112,22 @@ tests/          spec-vs-docs, signing, every endpoint request, validation, engin
 ```
 
 Trading futures with leverage can lose more than you expect quickly. The analysis tools give opinions from data, not guarantees.
+
+
+## J-Rock as a full agent (everything from chat, no .env needed)
+
+Talk to it in Telegram or Slack:
+
+| You say | It does |
+|---|---|
+| `set LLM_PROVIDER=deepseek` then `set LLM_API_KEY=sk-...` | sets its brain (works even before it has an LLM) |
+| `set BITUNIX_API_KEY=...`, `set DRY_RUN=false`, `settings`, `restart` | any setting, stored in data/agent.db |
+| "learn this skill: ..." / "install the skill at <url>" | saves a markdown skill, follows it when relevant |
+| "add the MCP server https://host/mcp with token X" / "add MCP: npx -y @modelcontextprotocol/server-filesystem /sdcard" | connects it, its tools become J-Rock's tools |
+| "make a tool that ..." | writes a Python tool, loads it, tests it |
+| "review your code", "fix the bug in X", "clone github.com/me/app and fix its tests" | reads, edits, runs tests, commits and pushes |
+
+The first person who messages the bot becomes its owner (allow-list saved automatically).
+The HTTP API refuses remote requests until you `set API_TOKEN=...` because it can run code.
+On Railway, attach a Volume at `/app/data` so settings, skills and MCP servers survive redeploys, and
+`set GITHUB_TOKEN=...` so J-Rock can push its own fixes (Railway then redeploys).
