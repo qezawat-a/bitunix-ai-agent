@@ -22,6 +22,7 @@ from ..extensions.agent_tools import CustomTools, register as register_agent_too
 from ..extensions.mcp_client import MCPManager
 from ..extensions.skills import Skills
 from ..extensions.store import SettingsStore
+from ..storage.filesync import FileSync
 from .llm import LLM
 from .tools import Tool, ToolContext, ToolExecutor, build_tools
 
@@ -109,6 +110,12 @@ class Agent:
         # ---- self-extension: settings from chat, skills, MCP servers, custom tools, coding tools
         data_dir = os.path.dirname(os.path.abspath(settings.db_path)) if settings.db_path != ":memory:" else os.path.abspath("data")
         self.store = SettingsStore(settings.db_path)
+        # With DATABASE_URL (Neon/Postgres), skills, MCP servers and custom tools are kept in the DB too.
+        self.filesync = FileSync(settings.db_path, data_dir)
+        try:
+            self.filesync.restore()
+        except Exception as e:
+            log.warning("could not restore files from the database: %s", e)
         self.skills = Skills(os.path.join(data_dir, "skills"))
         self.mcp = MCPManager(os.path.join(data_dir, "mcp.json"))
         self._mcp_tool_names: set[str] = set()
@@ -137,6 +144,8 @@ class Agent:
                 log.warning("account check failed: %s", e)
         self.monitor.start()
         asyncio.get_running_loop().create_task(self._start_mcp())
+        if self.filesync.enabled:
+            asyncio.get_running_loop().create_task(self.filesync.run())
 
     async def _start_mcp(self):
         try:
@@ -178,6 +187,10 @@ class Agent:
         return None
 
     async def stop(self):
+        try:
+            self.filesync.sync_once()
+        except Exception:
+            pass
         try:
             await self.mcp.close()
         except Exception:

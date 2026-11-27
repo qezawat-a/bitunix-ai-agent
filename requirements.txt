@@ -7,3 +7,4 @@ python-telegram-bot>=21
 socksio>=1.0          # SOCKS5 proxy support for Telegram/Bitunix (pure Python)
 python-dotenv>=1.0
 tzdata
+pg8000>=1.30           # Postgres/Neon when DATABASE_URL is set (pure Python)

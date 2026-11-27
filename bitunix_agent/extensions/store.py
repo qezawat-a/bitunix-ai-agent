@@ -3,8 +3,9 @@ so the user never has to edit .env (it stays optional)."""
 from __future__ import annotations
 
 import os
-import sqlite3
 import time
+
+from ..storage.backend import connect
 
 SECRET_HINTS = ("KEY", "SECRET", "TOKEN", "PASSWORD", "PASS")
 
@@ -24,9 +25,11 @@ KNOWN = {
     "SLACK_PROXY": "http proxy for Slack", "API_TOKEN": "HTTP API bearer token", "TIMEZONE": "e.g. Asia/Tehran",
     "WATCH_SYMBOLS": "comma list", "GITHUB_TOKEN": "GitHub token for clone/push of private repos",
     "WORKSPACE_DIR": "folder for projects J-Rock works on", "SHELL_TIMEOUT": "seconds per shell command",
+    "DATABASE_URL": "Postgres/Neon URL; memory, settings, skills and MCP survive redeploys (restart needed)",
+    "API_HOST": "listen address, keep 0.0.0.0 (never a domain)", "API_PORT": "listen port, default 8080",
 }
 NEEDS_RESTART = {"TELEGRAM_BOT_TOKEN", "TELEGRAM_PROXY", "TELEGRAM_API_URL", "SLACK_BOT_TOKEN", "SLACK_APP_TOKEN", "SLACK_PROXY",
-                 "API_TOKEN", "BITUNIX_PROXY", "WATCH_SYMBOLS"}
+                 "API_TOKEN", "BITUNIX_PROXY", "WATCH_SYMBOLS", "DATABASE_URL", "API_HOST", "API_PORT"}
 
 
 def is_secret(name: str) -> bool:
@@ -44,14 +47,11 @@ def mask(name: str, value: str | None) -> str:
 class SettingsStore:
     def __init__(self, db_path: str):
         self.path = db_path
-        if db_path != ":memory:":
-            os.makedirs(os.path.dirname(os.path.abspath(db_path)), exist_ok=True)
-        self.conn = sqlite3.connect(db_path, check_same_thread=False)
+        self.conn = connect(db_path)
         self.conn.execute("CREATE TABLE IF NOT EXISTS kv_settings (name TEXT PRIMARY KEY, value TEXT, ts REAL)")
-        self.conn.commit()
 
     def all(self) -> dict[str, str]:
-        return {r[0]: r[1] for r in self.conn.execute("SELECT name, value FROM kv_settings")}
+        return {r["name"]: r["value"] for r in self.conn.execute("SELECT name, value FROM kv_settings")}
 
     def set(self, name: str, value: str | None):
         name = name.strip().upper()
@@ -61,11 +61,10 @@ class SettingsStore:
         else:
             self.conn.execute("INSERT OR REPLACE INTO kv_settings VALUES (?,?,?)", (name, str(value), time.time()))
             os.environ[name] = str(value)
-        self.conn.commit()
 
     def get(self, name: str) -> str | None:
-        r = self.conn.execute("SELECT value FROM kv_settings WHERE name=?", (name.upper(),)).fetchone()
-        return r[0] if r else None
+        rows = self.conn.execute("SELECT value FROM kv_settings WHERE name=?", (name.upper(),))
+        return rows[0]["value"] if rows else None
 
 
 def apply_overrides(db_path: str | None = None) -> dict[str, str]:

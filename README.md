@@ -95,7 +95,18 @@ New endpoints are reachable immediately through the `raw_request` tool.
 
 **Slack**: create an app, enable Socket Mode (app token `xapp-…` with `connections:write`), bot scopes `app_mentions:read chat:write im:history im:read im:write`, subscribe to `app_mention` and `message.im`, install, set both tokens.
 
-**Android**: see `ANDROID.md`. The server exposes `/v1/chat`, `/v1/tools/{name}`, `/v1/confirm/{id}`, `/v1/stream` (live pushes) and OpenAPI at `/health`.
+**Android**: see `ANDROID.md`. The server exposes `/v1/chat`, `/v1/tools/{name}`, `/v1/confirm/{id}`, `/v1/stream` (live pushes) and status at `/health`.
+
+**Any OpenAI-compatible app (e.g. Agent Trader)**: J-Rock also speaks the OpenAI API, so any app that takes a
+"Base URL + API key" can use J-Rock as its brain:
+
+| Field in the app | Value |
+|---|---|
+| Base URL | `https://your-domain` (e.g. your Railway domain, no port) |
+| API key | your `API_TOKEN` |
+| Model | `j-rock` |
+
+Endpoints: `GET /v1/models`, `POST /v1/chat/completions`. J-Rock keeps its own memory, so only the newest user message is used.
 
 ## Files
 ```
@@ -129,5 +140,26 @@ Talk to it in Telegram or Slack:
 
 The first person who messages the bot becomes its owner (allow-list saved automatically).
 The HTTP API refuses remote requests until you `set API_TOKEN=...` because it can run code.
-On Railway, attach a Volume at `/app/data` so settings, skills and MCP servers survive redeploys, and
-`set GITHUB_TOKEN=...` so J-Rock can push its own fixes (Railway then redeploys).
+On Railway, set `DATABASE_URL` (Neon/Postgres) or attach a Volume at `/app/data` so settings, skills and MCP servers
+survive redeploys, and `set GITHUB_TOKEN=...` so J-Rock can push its own fixes (Railway then redeploys).
+
+
+## Railway: variables to set
+
+| Variable | Needed | What to put |
+|---|---|---|
+| `LLM_PROVIDER`, `LLM_API_KEY`, `LLM_MODEL` (+ `LLM_BASE_URL` for `custom`) | yes | the brain |
+| `BITUNIX_API_KEY`, `BITUNIX_SECRET_KEY` | for trading | Bitunix API keys (Futures permission) |
+| `DRY_RUN` | yes | `true` = simulate, `false` = real orders |
+| `TELEGRAM_BOT_TOKEN` | for Telegram | from @BotFather. Only ONE copy of the bot may run (stop Termux if Railway runs it) |
+| `SLACK_BOT_TOKEN`, `SLACK_APP_TOKEN` | for Slack | `xoxb-...` and `xapp-...` |
+| `API_TOKEN` | yes when you have a domain | long random secret, protects the API |
+| `API_HOST` | no | leave empty or `0.0.0.0`, never your domain |
+| `DATABASE_URL` | recommended | Neon/Postgres URL: memory, settings, skills and MCP survive redeploys |
+| `GITHUB_TOKEN` | for self-coding | classic token with `repo` scope, so J-Rock can push its own fixes |
+| `TELEGRAM_PROXY`, `SLACK_PROXY`, `BITUNIX_PROXY`, `TELEGRAM_API_URL` | no | leave empty on Railway (they're for Iran/Termux) |
+
+Domain: Railway > Settings > Networking > Custom domain, target port `8080`. Check `https://your-domain/health`:
+it shows the WebSocket state, whether keys are set and which database is in use (`db.backend`).
+
+Without `DATABASE_URL`, attach a Volume at `/app/data` instead, or everything set from chat is lost on redeploy.

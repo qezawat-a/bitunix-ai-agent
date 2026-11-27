@@ -1,13 +1,12 @@
-"""SQLite persistence: chat memory, trade journal, alerts, scheduled tasks, confirmations, trailing stops, notes."""
+"""Persistence (SQLite file, or Postgres/Neon when DATABASE_URL is set): chat memory, trade journal, alerts, scheduled tasks, confirmations, trailing stops, notes."""
 from __future__ import annotations
 
 import json
-import os
-import sqlite3
-import threading
 import time
 import uuid
 from typing import Any
+
+from .backend import connect
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY AUTOINCREMENT, chat_id TEXT, role TEXT, content TEXT, ts REAL);
@@ -24,21 +23,11 @@ CREATE TABLE IF NOT EXISTS chats (chat_id TEXT PRIMARY KEY, channel TEXT, addres
 
 class DB:
     def __init__(self, path: str):
-        if path != ":memory:":
-            os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
-        self.conn = sqlite3.connect(path, check_same_thread=False)
-        self.conn.row_factory = sqlite3.Row
-        self.lock = threading.Lock()
-        with self.lock:
-            self.conn.executescript(SCHEMA)
-            self.conn.commit()
+        self.conn = connect(path)
+        self.conn.script(SCHEMA)
 
-    def _x(self, sql: str, args: tuple = ()) -> list[sqlite3.Row]:
-        with self.lock:
-            cur = self.conn.execute(sql, args)
-            rows = cur.fetchall()
-            self.conn.commit()
-            return rows
+    def _x(self, sql: str, args: tuple = ()) -> list:
+        return self.conn.execute(sql, args)
 
     # ---------------------------------------------------------------- chat memory
     def add_message(self, chat_id: str, msg: dict):

@@ -120,7 +120,9 @@ def build_app(agent) -> Starlette:
         }
 
     async def health(req: Request):
-        return _json({"ok": True, "dry_run": agent.rest.dry_run, "ws": agent.ws.status(), "keys": agent.settings.has_keys})
+        from ..storage.backend import STATUS
+        db = {"backend": STATUS["backend"]} if not STATUS["error"] else {"backend": STATUS["backend"], "error": STATUS["error"]}
+        return _json({"ok": True, "dry_run": agent.rest.dry_run, "ws": agent.ws.status(), "keys": agent.settings.has_keys, "db": db})
 
     async def chat(req: Request):
         b = await _body(req)
