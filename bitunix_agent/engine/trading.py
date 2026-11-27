@@ -1,12 +1,12 @@
 """High-level trading engine on top of the raw endpoints.
 
 Knows the rules the docs spread across pages, so the agent does not have to:
-- HEDGE vs ONE_WAY order parameters (tradeSide / positionId / reduceOnly)
+- HEDGE mode order parameters (tradeSide / positionId), per the official docs
 - leverage + margin mode set before opening, only when different
 - qty from USDT notional, margin, or risk-to-stop; rounded to basePrecision; min/max volume
 - price rounded to quotePrecision; priceProtectScope band; TP/SL direction checks vs mark/entry/liq
 - orders above maxLimit/maxMarket volume split into batch_order chunks of <= 5
-- full close via flash_close_position, partial close via place_order, both modes
+- full close via flash_close_position, partial close via place_order, HEDGE mode
 - position TP/SL vs partial TP/SL chosen automatically; existing ones modified instead of duplicated
 """
 from __future__ import annotations
@@ -54,13 +54,7 @@ class TradingEngine:
         return acct
 
     async def position_mode(self) -> str:
-        if self.rest.position_mode:
-            return self.rest.position_mode
-        try:
-            acct = await self.account()
-            return acct.get("positionMode", "ONE_WAY")
-        except Exception:
-            return "ONE_WAY"
+        return "HEDGE"  # HEDGE mode only
 
     async def positions(self, symbol: str | None = None) -> list[dict]:
         kw = {"symbol": normalize_symbol(symbol)} if symbol else {}
@@ -309,30 +303,15 @@ class TradingEngine:
         q = min(rules.round_qty(q, "down"), pqty)
         if q <= 0:
             return {"ok": False, "problems": [f"close qty rounds to 0 (basePrecision {rules.base_precision})"]}
-        mode = pos.get("positionMode") or await self.position_mode()
         is_long = pos["side"] == "LONG"
         common: dict[str, Any] = {"symbol": symbol, "qty": q, "orderType": order_type.upper()}
         if order_type.upper() == "LIMIT":
             common["price"] = rules.round_price(price)
             common["effect"] = "GTC"
-        if mode == "HEDGE":
-            # official table: close long = side BUY + tradeSide CLOSE; close short = side SELL + tradeSide CLOSE
-            primary = {**common, "side": "BUY" if is_long else "SELL", "tradeSide": "CLOSE", "positionId": pos["positionId"]}
-            fallback = {**primary, "side": "SELL" if is_long else "BUY"}
-        else:
-            primary = {**common, "side": "SELL" if is_long else "BUY", "reduceOnly": True}
-            fallback = {**common, "side": "SELL" if is_long else "BUY", "tradeSide": "CLOSE", "positionId": pos["positionId"]}
-        try:
-            res = await self.rest.place_order(**primary)
-            used = primary
-        except BitunixAPIError as e:
-            # parameter-shape rejections never execute anything, so trying the alternate documented form is safe
-            if e.code in (10002, 10008, 30004, 30018, 30019):
-                res = await self.rest.place_order(**fallback)
-                used = fallback
-            else:
-                raise
-        return {"ok": True, "method": "place_order", "mode": mode, "closed_qty": fmt_decimal(q), "of": str(pqty), "request": used, "result": res}
+        # official HEDGE table: close long = side BUY + tradeSide CLOSE; close short = side SELL + tradeSide CLOSE (+ positionId)
+        used = {**common, "side": "BUY" if is_long else "SELL", "tradeSide": "CLOSE", "positionId": pos["positionId"]}
+        res = await self.rest.place_order(**used)
+        return {"ok": True, "method": "place_order", "mode": "HEDGE", "closed_qty": fmt_decimal(q), "of": str(pqty), "request": used, "result": res}
 
     async def close_all(self, symbol: str | None = None) -> dict:
         kw = {"symbol": normalize_symbol(symbol)} if symbol else {}
@@ -411,7 +390,7 @@ class TradingEngine:
         pos = await self.find_position(symbol, side)
         if not pos:
             return {"ok": False, "problems": ["no position"]}
-        entry = D(pos.get("avgOpenPrice") or pos.get("entryPrice") or D(pos["entryValue"]) / D(pos["qty"]))
+        entry = D(pos.get("avgOpenPrice") or D(pos["entryValue"]) / D(pos["qty"]))
         off = entry * D(offset_pct) / 100
         sl = entry + off if pos["side"] == "LONG" else entry - off
         return await self.set_tpsl(symbol=symbol, position_id=pos["positionId"], stop_loss=sl)

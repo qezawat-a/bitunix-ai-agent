@@ -70,9 +70,9 @@ def minimal_args(key):
             else:
                 args[p["name"]] = sample(p)
     if key in ("place_order",):
-        args.update(orderType="MARKET", symbol="BTCUSDT")
+        args.update(orderType="MARKET", symbol="BTCUSDT", tradeSide="OPEN")  # HEDGE mode: tradeSide required
     if key == "batch_order":
-        args["orderList"][0]["orderType"] = "MARKET"
+        args["orderList"][0].update(orderType="MARKET", tradeSide="OPEN")
     if key in ("modify_order", "get_order_detail"):
         args["orderId"] = "1"
     if key == "cancel_orders":
@@ -143,7 +143,7 @@ async def test_error_codes_raise_with_hint_and_retry():
         return httpx.Response(200, json={"code": 20003, "msg": "Insufficient balance"})
     c = BitunixREST("KEY", "SECRET", transport=httpx.MockTransport(handler))
     with pytest.raises(BitunixAPIError) as e:
-        await c.place_order(symbol="BTCUSDT", qty="1", side="BUY", orderType="MARKET")
+        await c.place_order(symbol="BTCUSDT", qty="1", side="BUY", orderType="MARKET", tradeSide="OPEN")
     assert e.value.code == 20003 and "balance" in e.value.hint and calls["n"] == 2
     await c.close()
 

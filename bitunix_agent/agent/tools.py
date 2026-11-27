@@ -145,12 +145,12 @@ def build_tools() -> dict[str, Tool]:
     }
 
     @add("open_position", "Open a LONG or SHORT futures position the smart way: sizes from qty/notional/margin/risk, rounds to the "
-         "symbol's precision, sets leverage & margin mode if needed, validates TP/SL direction, handles HEDGE/ONE_WAY, "
+         "symbol's precision, sets leverage & margin mode if needed, validates TP/SL direction, HEDGE mode (tradeSide OPEN), "
          "splits oversize orders. Attach TP/SL in the same call.", _obj(trade_props, ["symbol", "side"]), mutating=True)
     async def _open(ctx, **a):
         return await ctx.services.engine.open_position(**a)
 
-    @add("close_position", "Close a position fully (flash close) or partially (percent or qty), market or limit. Works in HEDGE and ONE_WAY.",
+    @add("close_position", "Close a position fully (flash close) or partially (percent or qty), market or limit. HEDGE mode: tradeSide CLOSE + positionId.",
          _obj({"symbol": S, "side": {"type": "string", "enum": ["LONG", "SHORT"]}, "position_id": S,
                "percent": _d("1-100, default 100", N), "qty": N, "order_type": {"type": "string", "enum": ["MARKET", "LIMIT"]}, "price": N},
               ["symbol"]), mutating=True)

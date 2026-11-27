@@ -61,18 +61,6 @@ async def test_hedge_partial_close_uses_documented_params():
 
 
 @pytest.mark.asyncio
-async def test_one_way_partial_close_reduce_only_with_fallback():
-    fx, rest, eng = make("ONE_WAY")
-    fx.reject_first_close = True
-    fx.positions = [{"positionId": "p1", "symbol": "BTCUSDT", "qty": "0.1", "side": "LONG", "positionMode": "ONE_WAY"}]
-    r = await eng.close_position(symbol="BTCUSDT", percent=30)
-    assert r["ok"]
-    first, second = posts(fx, "/place_order")
-    assert first["side"] == "SELL" and first["reduceOnly"] is True
-    assert second["tradeSide"] == "CLOSE" and second["positionId"] == "p1"
-
-
-@pytest.mark.asyncio
 async def test_full_close_uses_flash_close():
     fx, rest, eng = make()
     fx.positions = [{"positionId": "p9", "symbol": "BTCUSDT", "qty": "0.1", "side": "SHORT", "positionMode": "HEDGE"}]
