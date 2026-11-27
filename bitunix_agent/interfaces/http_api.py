@@ -10,6 +10,9 @@ POST /v1/confirm/{id}         confirm a pending action
 GET  /v1/alerts | /v1/tasks | /v1/journal
 WS   /v1/stream?token=...     live push: notifications, order/position/tpsl/balance events, tickers
 GET  /health                  status (no token)
+GET  /v1/models               OpenAI-compatible: lists the "j-rock" model
+POST /v1/chat/completions     OpenAI-compatible chat: any app that takes an OpenAI base URL + key
+                              (e.g. Agent Trader) can use J-Rock as its brain. Key = API_TOKEN.
 
 Built on Starlette only (pure Python, no pydantic/Rust), so it installs on Termux/Android.
 """
@@ -89,6 +92,33 @@ def build_app(agent) -> Starlette:
     def chat_id_of(req: Request, default: str = "android") -> str:
         return req.query_params.get("chat_id", default)
 
+    async def oa_models(req: Request):
+        return {"object": "list", "data": [{"id": "j-rock", "object": "model", "owned_by": "j-rock"}]}
+
+    async def oa_chat(req: Request):
+        """OpenAI chat-completions shape. J-Rock keeps its own memory per chat, so only the newest user
+        message is passed on; the caller's system prompt and history are ignored."""
+        import time
+        import uuid
+        b = await _body(req)
+        msgs = b.get("messages") or []
+        text = ""
+        for m in reversed(msgs):
+            if isinstance(m, dict) and m.get("role") == "user":
+                c = m.get("content")
+                if isinstance(c, list):  # content parts
+                    c = " ".join(str(p.get("text", "")) for p in c if isinstance(p, dict))
+                text = str(c or "").strip()
+                break
+        cid = "app:" + str(b.get("user") or req.headers.get("x-chat-id") or "openai")
+        reply = await agent.chat(cid, text) if text else ""
+        return {
+            "id": "chatcmpl-" + uuid.uuid4().hex[:24], "object": "chat.completion", "created": int(time.time()),
+            "model": b.get("model") or "j-rock",
+            "choices": [{"index": 0, "message": {"role": "assistant", "content": reply}, "finish_reason": "stop"}],
+            "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
+        }
+
     async def health(req: Request):
         return _json({"ok": True, "dry_run": agent.rest.dry_run, "ws": agent.ws.status(), "keys": agent.settings.has_keys})
 
@@ -160,6 +190,8 @@ def build_app(agent) -> Starlette:
         Route("/", health),
         Route("/health", health),
         Route("/v1/chat", guarded(chat), methods=["POST"]),
+        Route("/v1/models", guarded(oa_models)),
+        Route("/v1/chat/completions", guarded(oa_chat), methods=["POST"]),
         Route("/v1/overview", guarded(overview)),
         Route("/v1/market/{symbol}", guarded(market)),
         Route("/v1/analysis/{symbol}", guarded(analysis)),

@@ -27,3 +27,22 @@ def test_http_api_end_to_end():
         chat = c.post("/v1/chat", json={"chat_id": "x"}, headers=H).json()
         assert chat["error"] == "missing_field"
         assert c.get("/health").json()["ok"] is True
+
+
+def test_openai_compatible_endpoint():
+    a = Agent(Settings(db_path=":memory:", api_token="tok", llm_api_key=""))
+    seen = {}
+
+    async def fake_chat(cid, text):
+        seen["cid"], seen["text"] = cid, text
+        return "pong"
+    a.chat = fake_chat
+    H = {"Authorization": "Bearer tok"}
+    with TestClient(build_app(a)) as c:
+        assert c.post("/v1/chat/completions", json={}).status_code == 401
+        assert c.get("/v1/models", headers=H).json()["data"][0]["id"] == "j-rock"
+        r = c.post("/v1/chat/completions", headers=H, json={"model": "j-rock", "max_tokens": 16, "messages": [
+            {"role": "system", "content": "you are an app"}, {"role": "user", "content": "old"},
+            {"role": "assistant", "content": "x"}, {"role": "user", "content": "ping"}]}).json()
+        assert r["choices"][0]["message"]["content"] == "pong"
+        assert seen == {"cid": "app:openai", "text": "ping"}

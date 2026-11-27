@@ -350,12 +350,13 @@ def register(tools: dict[str, Tool], agent) -> None:
          "Use after every code change (path 'self' = J-Rock).", _obj({"path": S}))
     async def _check(ctx, path="self"):
         root = resolve(path)
-        out = {"compile": await sh([sys.executable, "-m", "compileall", "-q", "."], root, 300)}
+        out = {"compile": await sh([sys.executable, "-m", "compileall", "-q", "-f", "."], root, 300)}
         if root == SELF_ROOT:
             out["import"] = await sh([sys.executable, "-c", "import bitunix_agent.agent.core, bitunix_agent.__main__; print('imports OK')"], root, 120)
         has_tests = os.path.isdir(os.path.join(root, "tests")) or any(f.startswith("test_") for f in os.listdir(root) if f.endswith(".py"))
         if has_tests:
-            out["pytest"] = await sh([sys.executable, "-m", "pytest", "-q", "-x", "--no-header", "-p", "no:cacheprovider"], root, 600)
+            out["pytest"] = await sh([sys.executable, "-m", "pytest", "-q", "-x", "--no-header", "-p", "no:cacheprovider"], root, 600,
+                                  {**_git_env(), "PYTHONDONTWRITEBYTECODE": "1"})
             if "No module named pytest" in (out["pytest"].get("output") or ""):
                 out["pytest"] = {"skipped": "pytest not installed (pip install pytest pytest-asyncio)"}
         out["ok"] = all(v.get("exit_code") in (0, None) and not v.get("timed_out") for v in out.values() if isinstance(v, dict) and "exit_code" in v)
