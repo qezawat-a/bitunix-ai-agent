@@ -411,7 +411,7 @@ class TradingEngine:
         pos = await self.find_position(symbol, side)
         if not pos:
             return {"ok": False, "problems": ["no position"]}
-        entry = D(pos.get("avgOpenPrice") or D(pos["entryValue"]) / D(pos["qty"]))
+        entry = D(pos.get("avgOpenPrice") or pos.get("entryPrice") or D(pos["entryValue"]) / D(pos["qty"]))
         off = entry * D(offset_pct) / 100
         sl = entry + off if pos["side"] == "LONG" else entry - off
         return await self.set_tpsl(symbol=symbol, position_id=pos["positionId"], stop_loss=sl)

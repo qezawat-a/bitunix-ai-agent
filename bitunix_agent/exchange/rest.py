@@ -214,7 +214,30 @@ def _num_time(v):
         return v
 
 
+_POS_SIDE = {"BUY": "LONG", "SELL": "SHORT", "LONG": "LONG", "SHORT": "SHORT"}
+
+
+def _norm_positions(rows: Any) -> Any:
+    """The docs say position side is LONG/SHORT, but the live API answers BUY/SELL (seen in HEDGE mode, 2026-11-27).
+    Everything downstream (close, TP/SL, breakeven, trailing) expects LONG/SHORT, so normalise here and keep the raw value."""
+    for p in rows if isinstance(rows, list) else []:
+        if isinstance(p, dict) and isinstance(p.get("side"), str):
+            raw = p["side"].strip().upper()
+            if raw in _POS_SIDE:
+                p.setdefault("sideRaw", p["side"])
+                p["side"] = _POS_SIDE[raw]
+            if not p.get("avgOpenPrice") and p.get("entryPrice"):
+                p["avgOpenPrice"] = p["entryPrice"]
+    return rows
+
+
 def normalize(key: str, data: Any) -> Any:
+    if key == "get_pending_positions":
+        return _norm_positions(data)
+    if key == "get_history_positions":
+        if isinstance(data, dict):
+            _norm_positions(data.get("positionList"))
+        return _norm_positions(data) if isinstance(data, list) else data
     if key == "get_kline" and isinstance(data, list):
         for c in data:
             c["time"] = _num_time(c.get("time"))
