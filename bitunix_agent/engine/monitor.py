@@ -20,6 +20,7 @@ class Monitor:
         self.engine, self.db, self.notify, self.run_agent = engine, db, notify, run_agent
         self.poll = poll_sec
         self._tasks: list[asyncio.Task] = []
+        self._last_task_reply: dict[str, str] = {}
         self.margin_rate_alert = Decimal("0.8")  # notify when marginRate crosses this (closer to 1 = closer to liquidation)
         self._warned: set[str] = set()
 
@@ -103,11 +104,21 @@ class Monitor:
                 for t in self.db.due_tasks():
                     self.db.bump_task(t["id"], t["every_sec"])
                     if self.run_agent:
-                        reply = await self.run_agent(t["chat_id"], f"[Scheduled task {t['id']}] {t['prompt']}")
+                        prompt = t["prompt"]
+                        always = prompt.startswith("!ALWAYS ")
+                        prompt = prompt.removeprefix("!ALWAYS ")
+                        if not always:
+                            prompt += ("\n\n(Quiet task: message the user ONLY if something happened since the last run: "
+                                       "an entry/exit signal, an order placed or filled, TP/SL hit, a NEW error, or a big move. "
+                                       "Otherwise reply with exactly: SILENT)")
+                        reply = await self.run_agent(t["chat_id"], f"[Scheduled task {t['id']}] {prompt}")
+                        if not always and _is_quiet(reply, self._last_task_reply.get(t["id"])):
+                            continue
+                        self._last_task_reply[t["id"]] = reply
                         await self._broadcast(reply, t["chat_id"])
             except Exception:
                 log.exception("tasks loop")
-            await asyncio.sleep(10)
+            await asyncio.sleep(5)
 
     # ---------------------------------------------------------------- live account events
     async def _events_loop(self):
@@ -137,3 +148,15 @@ class Monitor:
             if d.get("event") == "CLOSE":
                 return f"🎯 TP/SL {d.get('status')}: {d.get('symbol')} position {d.get('positionId')} – {d.get('meaning')}"
         return None
+
+
+def _is_quiet(reply: str | None, last: str | None) -> bool:
+    """Suppress 'nothing new' runs: SILENT, empty, or the same message as last time (ignoring numbers)."""
+    import re
+    r = (reply or "").strip()
+    if not r or r.upper().startswith("SILENT") or r.upper().endswith("SILENT"):
+        return True
+    if last:
+        norm = lambda x: re.sub(r"[\d.,:%+\-~]+", "#", x)
+        return norm(r) == norm(last)
+    return False

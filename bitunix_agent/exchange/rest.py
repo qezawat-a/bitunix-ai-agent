@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import email.utils
 import logging
 import time
@@ -56,11 +57,31 @@ class BitunixREST(GeneratedEndpoints):
         kw: dict[str, Any] = {"timeout": timeout, "transport": transport}
         if proxy:
             kw["proxy"] = proxy
+        self._timeout, self._transport = timeout, transport
+        # A proxy is in play if one is given or the environment sets one (httpx reads HTTPS_PROXY/ALL_PROXY).
+        self._proxied = bool(proxy) or any(os.getenv(v) for v in ("HTTPS_PROXY", "https_proxy", "ALL_PROXY", "all_proxy"))
+        self._direct = False
         self._http = httpx.AsyncClient(**kw)
         self.on_request = None  # optional hook(dict) for journaling
 
     async def close(self) -> None:
         await self._http.aclose()
+
+    async def _go_direct(self, why: str) -> bool:
+        """The proxy is broken (wrong port, 404, refused): switch to a direct connection once and keep working."""
+        if not self._proxied or self._direct:
+            return False
+        log.warning("Bitunix REST: proxy failed (%s); switching to a direct connection", why)
+        print(f"Bitunix REST: proxy failed ({why}). Switched to a direct connection. "
+              "Fix or remove BITUNIX_PROXY / HTTPS_PROXY in .env if you need the proxy.")
+        old = self._http
+        self._http = httpx.AsyncClient(timeout=self._timeout, transport=self._transport, trust_env=False)
+        self._direct = True
+        try:
+            await old.aclose()
+        except Exception:
+            pass
+        return True
 
     async def __aenter__(self):
         return self
@@ -118,7 +139,15 @@ class BitunixREST(GeneratedEndpoints):
                     resp = await self._http.get(url, headers=headers)
                 else:
                     resp = await self._http.post(url, headers=headers, content=body_str.encode("utf-8"))
+            except httpx.ProxyError as e:
+                if await self._go_direct(f"{type(e).__name__}"):
+                    attempt -= 1
+                    continue
+                raise BitunixNetworkError(key, repr(e), state_unknown=method == "POST", client_id=client_id) from e
             except (httpx.TransportError, httpx.TimeoutException) as e:
+                if isinstance(e, httpx.ConnectError) and await self._go_direct("cannot connect to proxy"):
+                    attempt -= 1
+                    continue
                 # GETs are idempotent; a POST may have reached the exchange, so never blindly resend it
                 if method == "GET" and attempt <= self.max_retries:
                     await asyncio.sleep(min(2 ** attempt * 0.25, 4))
@@ -134,6 +163,15 @@ class BitunixREST(GeneratedEndpoints):
             try:
                 payload = resp.json()
             except ValueError:
+                # Bitunix always answers JSON; an HTML/plain 404/403/407/502 means the proxy, not Bitunix, answered.
+                if resp.status_code in (403, 404, 405, 407, 502, 503) and await self._go_direct(f"proxy HTTP {resp.status_code}"):
+                    attempt -= 1
+                    continue
+                if resp.status_code in (403, 404, 451) and not self._proxied:
+                    raise BitunixAPIError(resp.status_code,
+                        f"Bitunix's server refused this machine's IP (HTTP {resp.status_code}, non-JSON). This usually means a "
+                        "region block: Bitunix doesn't serve some countries (e.g. the US). On Railway, set the service region to "
+                        "Asia (Singapore) or Europe in Settings, then redeploy.", key, body or query, resp.status_code)
                 if resp.status_code >= 500 and method == "GET" and attempt <= self.max_retries:
                     await asyncio.sleep(min(2 ** attempt * 0.25, 4))
                     continue

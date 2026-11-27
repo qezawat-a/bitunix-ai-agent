@@ -92,6 +92,9 @@ async def main():
     p.add_argument("--log", default="INFO")
     a = p.parse_args()
     logging.basicConfig(level=a.log, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    # httpx logs every request URL at INFO, and Telegram's URL contains the bot token. Keep tokens out of logs.
+    for noisy in ("httpx", "httpcore", "telegram", "telegram.ext", "slack_bolt", "slack_sdk", "websockets", "aiohttp"):
+        logging.getLogger(noisy).setLevel(logging.WARNING)
     agent = Agent(settings)
     try:
         if a.check:

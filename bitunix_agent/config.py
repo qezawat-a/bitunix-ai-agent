@@ -44,6 +44,31 @@ def _list(name: str) -> list[str]:
     return [x.strip() for x in os.getenv(name, "").split(",") if x.strip()]
 
 
+def _bitunix_proxy() -> str | None:
+    """BITUNIX_PROXY, unless it points at this agent's own HTTP API port (a common copy-paste mistake that gives 404s)."""
+    p = (os.getenv("BITUNIX_PROXY") or "").split("#")[0].strip()
+    if not p:
+        return None
+    if "://" not in p:
+        p = "http://" + p
+    import re as _re
+    m = _re.match(r"^\w+://(?:[^@/]*@)?(127\.0\.0\.1|localhost|0\.0\.0\.0):(\d+)", p)
+    own = (os.getenv("API_PORT") or "8080").split("#")[0].strip()
+    if m and m.group(2) == own:
+        print(f"BITUNIX_PROXY={p} is J-Rock's own API port, not a VPN proxy. Ignoring it and connecting directly.")
+        return None
+    return p
+
+
+def _api_port() -> int:
+    """API_PORT, else PORT (Railway/Render/Heroku set it), else 8080."""
+    for name in ("API_PORT", "PORT"):
+        v = (os.getenv(name) or "").split("#")[0].strip()
+        if v.isdigit():
+            return int(v)
+    return 8080
+
+
 @dataclass
 class Settings:
     # ---------------- Bitunix
@@ -53,7 +78,7 @@ class Settings:
     bitunix_ws_public: str = field(default_factory=lambda: os.getenv("BITUNIX_WS_PUBLIC", "wss://fapi.bitunix.com/public/"))
     bitunix_ws_private: str = field(default_factory=lambda: os.getenv("BITUNIX_WS_PRIVATE", "wss://fapi.bitunix.com/private/"))
     margin_coin: str = field(default_factory=lambda: os.getenv("MARGIN_COIN", "USDT"))
-    http_proxy: str | None = field(default_factory=lambda: os.getenv("BITUNIX_PROXY") or None)
+    http_proxy: str | None = field(default_factory=lambda: _bitunix_proxy())
     dry_run: bool = field(default_factory=lambda: _b("DRY_RUN", True))
 
     # ---------------- LLM
@@ -85,7 +110,7 @@ class Settings:
     slack_app_token: str = field(default_factory=lambda: os.getenv("SLACK_APP_TOKEN", ""))
     slack_allowed_users: list[str] = field(default_factory=lambda: _list("SLACK_ALLOWED_USER_IDS"))
     api_host: str = field(default_factory=lambda: os.getenv("API_HOST", "0.0.0.0"))
-    api_port: int = field(default_factory=lambda: int(_f("API_PORT", 8080)) if _f("API_PORT", 8080) != float("inf") else 8080)
+    api_port: int = field(default_factory=lambda: _api_port())
     api_token: str = field(default_factory=lambda: os.getenv("API_TOKEN", ""))
 
     # ---------------- Storage
@@ -99,3 +124,4 @@ class Settings:
 
 
 settings = Settings()
+

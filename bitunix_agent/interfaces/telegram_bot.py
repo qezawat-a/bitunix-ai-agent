@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import time
 import logging
 import os
 
@@ -105,13 +106,25 @@ class TelegramInterface:
             except Exception as e:
                 log.warning("telegram notify failed: %s", e)
 
+    def _poll_error(self, e: Exception):
+        """Polling errors are retried by the library; print a short, useful line instead of a traceback."""
+        now = time.time()
+        if now - getattr(self, "_last_poll_err", 0) < 60:
+            return
+        self._last_poll_err = now
+        if type(e).__name__ == "Conflict":
+            print("Telegram: this bot token is running in TWO places (e.g. Railway and Termux). "
+                  "Only one can receive messages. Stop the other copy, or give each its own bot token.")
+        else:
+            print(f"Telegram: connection hiccup ({type(e).__name__}). Retrying automatically.")
+
     async def _connect_forever(self):
         delay = 5
         while not self.ready:
             try:
                 await self.app.initialize()
                 await self.app.start()
-                await self.app.updater.start_polling(drop_pending_updates=True)
+                await self.app.updater.start_polling(drop_pending_updates=True, error_callback=self._poll_error)
                 self.ready = True
                 me = self.app.bot.username
                 print(f"Telegram: connected as @{me}")

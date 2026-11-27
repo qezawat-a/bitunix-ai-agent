@@ -313,12 +313,30 @@ def build_tools() -> dict[str, Tool]:
         ctx.services.db.delete_alert(alert_id)
         return {"ok": True}
 
-    @add("schedule_task", "Run an instruction for the user on a repeating schedule (e.g. every 60 minutes: analyze BTC and report). "
-         "The result is pushed to this chat.", _obj({"every_minutes": N, "instruction": S, "start_in_minutes": N}, ["every_minutes", "instruction"]))
-    async def _sched(ctx, every_minutes, instruction, start_in_minutes=None):
+    @add("schedule_task", "Run an instruction on a repeating schedule, as fast as every 0.25 minutes (15 s). "
+         "Quiet by default: the user is messaged only when something happens (signal, order, fill, TP/SL, new error, big move). "
+         "Set report_every_run=true only if the user wants a message on every run.",
+         _obj({"every_minutes": N, "instruction": S, "start_in_minutes": N, "report_every_run": B}, ["every_minutes", "instruction"]))
+    async def _sched(ctx, every_minutes, instruction, start_in_minutes=None, report_every_run=False):
+        every = max(15, int(float(every_minutes) * 60))
         first = time.time() + float(start_in_minutes) * 60 if start_in_minutes is not None else None
-        tid = ctx.services.db.add_task(ctx.chat_id, int(float(every_minutes) * 60), instruction, first)
-        return {"ok": True, "task_id": tid}
+        prompt = ("!ALWAYS " if report_every_run else "") + instruction
+        tid = ctx.services.db.add_task(ctx.chat_id, every, prompt, first)
+        return {"ok": True, "task_id": tid, "every_seconds": every, "quiet": not report_every_run}
+
+    @add("update_task", "Change a scheduled task: its interval and/or quiet mode.",
+         _obj({"task_id": S, "every_minutes": N, "report_every_run": B}, ["task_id"]))
+    async def _upd_task(ctx, task_id, every_minutes=None, report_every_run=None):
+        db = ctx.services.db
+        t = next((x for x in db.tasks(ctx.chat_id) if x["id"] == task_id), None)
+        if not t:
+            return {"ok": False, "error": f"no task {task_id}", "tasks": db.tasks(ctx.chat_id)}
+        every = max(15, int(float(every_minutes) * 60)) if every_minutes is not None else t["every_sec"]
+        prompt = t["prompt"]
+        if report_every_run is not None:
+            prompt = ("!ALWAYS " if report_every_run else "") + prompt.removeprefix("!ALWAYS ")
+        db._x("UPDATE tasks SET every_sec=?, prompt=? WHERE id=?", (every, prompt, task_id))
+        return {"ok": True, "task_id": task_id, "every_seconds": every, "quiet": not prompt.startswith("!ALWAYS ")}
 
     @add("list_tasks", "Scheduled tasks for this chat.", _obj({}))
     async def _tasks(ctx):
