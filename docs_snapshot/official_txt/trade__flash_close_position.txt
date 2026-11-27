@@ -1,0 +1,18 @@
+Flash Close Position ​Rate Limit: 5 req/sec/uidDescription ​Close position by position idHTTP Request ​POST /api/v1/futures/trade/flash_close_positionRequest Parameters ​
+[TABLE]
+Parameter | Type | Required | Description
+positionId | String | true | position id
+[/TABLE]
+Request Examplebashcurl -X 'POST'  --location 'https://fapi.bitunix.com/api/v1/futures/trade/flash_close_position' \
+   -H "api-key:*******" \
+   -H "sign:*" \
+   -H "nonce:your-nonce" \
+   -H "timestamp:1659076670000" \
+   -H "language:en-US" \
+   -H "Content-Type: application/json" \
+ --data '{"positionId":"19848247723672"}'Response Parameters ​
+[TABLE]
+Parameter | Type | Description
+positionId | string | Position ID
+[/TABLE]
+Response Examplejson{"code":0,"data":{"positionId":"19848247723672"},"msg":"Success"}

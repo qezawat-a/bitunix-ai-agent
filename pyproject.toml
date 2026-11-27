@@ -1,0 +1,16 @@
+[project]
+name = "bitunix-ai-agent"
+version = "1.0.0"
+description = "AI trading agent for Bitunix futures: every official endpoint, WebSocket channel and parameter, with Telegram, Slack and an HTTP API for Android."
+requires-python = ">=3.10"
+dependencies = [
+    "httpx>=0.27",
+    "python-dotenv>=1.0",
+    "python-telegram-bot>=21",
+    "socksio>=1.0",
+    "source>=1.2.0",
+    "starlette>=0.37",
+    "tzdata>=2026.6",
+    "uvicorn>=0.29",
+    "websockets>=13",
+]

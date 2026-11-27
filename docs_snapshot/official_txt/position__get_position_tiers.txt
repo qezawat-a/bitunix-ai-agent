@@ -1,0 +1,16 @@
+Get Position Tiers ​Rate Limit: 10 req/sec/ipDescription ​Get Position TiersHTTP Request ​GET /api/v1/futures/position/get_position_tiersRequest Parameters ​
+[TABLE]
+Parameter | Type | Required | Description
+symbol | string | true | Trading pair
+[/TABLE]
+Request Examplebashcurl -X 'GET'  --location 'https://fapi.bitunix.com/api/v1/futures/position/get_position_tiers?symbol=BTCUSDT'Response Parameters ​
+[TABLE]
+Parameter | Type | Description
+symbol | string | Trading pair
+level | int32 | level
+startValue | string | Minimum value
+endValue | string | Maximum value
+leverage | int32 | leverage
+maintenanceMarginRate | string | Maintenance margin rate: The margin amount corresponds to the position quantity tier. When the margin rate of a position is less than the maintenance margin rate, it will trigger a forced partial liquidation or full liquidation.
+[/TABLE]
+Response Examplejson{"code":0,"data":[{"symbol":"BTCUSDT","level":1,"startValue":"0","endValue":"50000","leverage":125,"maintenanceMarginRate":"0.004"},{"symbol":"BTCUSDT","level":2,"startValue":"50000","endValue":"200000","leverage":100,"maintenanceMarginRate":"0.005"}],"msg":"Success"}

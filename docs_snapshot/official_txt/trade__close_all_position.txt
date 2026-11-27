@@ -1,0 +1,17 @@
+Close All Position ​Rate Limit: 1 req/sec/uidDescription ​Close all positionsHTTP Request ​POST /api/v1/futures/trade/close_all_positionRequest Parameters ​
+[TABLE]
+Parameter | Type | Required | Description
+symbol | string | false | Trading pair
+[/TABLE]
+Request Examplebashcurl -X 'POST'  --location 'https://fapi.bitunix.com/api/v1/futures/trade/close_all_position' \
+   -H "api-key:*******" \
+   -H "sign:*" \
+   -H "nonce:your-nonce" \
+   -H "timestamp:1659076670000" \
+   -H "language:en-US" \
+   -H "Content-Type: application/json" \
+ --data '{"symbol":"BTCUSDT"}'Response Parameters ​
+[TABLE]
+Parameter | Type | Description
+[/TABLE]
+Response Examplejson{"code":0,"data":"","msg":"Success"}

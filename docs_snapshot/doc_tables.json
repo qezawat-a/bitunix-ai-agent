@@ -1,0 +1,5382 @@
+{
+ "ErrorCode__error_code": {
+  "file": "ErrorCode__error_code",
+  "rate": null,
+  "tables": [
+   {
+    "before": " ",
+    "header": [
+     "ErrorCode",
+     "description",
+     "httpStatusCode"
+    ],
+    "rows": [
+     [
+      "0",
+      "Success",
+      "200"
+     ],
+     [
+      "403",
+      "This API key does not support this operation",
+      "200"
+     ],
+     [
+      "10001",
+      "Network Error",
+      "200"
+     ],
+     [
+      "10002",
+      "Parameter Error",
+      "200"
+     ],
+     [
+      "10003",
+      "api-key can't be empty",
+      "200"
+     ],
+     [
+      "10004",
+      "The current ip is not in the apikey ip whitelist",
+      "200"
+     ],
+     [
+      "10005",
+      "Too many requests, please try again later",
+      "200"
+     ],
+     [
+      "10006",
+      "Request too frequently",
+      "200"
+     ],
+     [
+      "10007",
+      "Sign signature error",
+      "200"
+     ],
+     [
+      "10008",
+      "{value} does not comply with the rule, optional [correctValue]",
+      "200"
+     ],
+     [
+      "10009",
+      "Another order operation is in progress, please try again shortly",
+      "200"
+     ],
+     [
+      "10010",
+      "Nonce's length must be less than 64",
+      "200"
+     ],
+     [
+      "10011",
+      "The request timestamp must be within 60,000 ms of the server time.",
+      "200"
+     ],
+     [
+      "20001",
+      "Market not exists",
+      "200"
+     ],
+     [
+      "20002",
+      "The current positions amount has exceeded the maximum open limit, please adjust the risk limit",
+      "200"
+     ],
+     [
+      "20003",
+      "Insufficient balance",
+      "200"
+     ],
+     [
+      "20004",
+      "Insufficient Trader",
+      "200"
+     ],
+     [
+      "20005",
+      "Invalid leverage",
+      "200"
+     ],
+     [
+      "20006",
+      "You can't change leverage or margin mode as there are open orders",
+      "200"
+     ],
+     [
+      "20007",
+      "Order not found, please try it later",
+      "200"
+     ],
+     [
+      "20008",
+      "Insufficient amount",
+      "200"
+     ],
+     [
+      "20009",
+      "Position exists, so positions mode cannot be updated",
+      "200"
+     ],
+     [
+      "20010",
+      "Activation failed, the available balance in the futures account does not meet the conditions for activation of the coupon",
+      "200"
+     ],
+     [
+      "20011",
+      "Account not allowed to trade",
+      "200"
+     ],
+     [
+      "20012",
+      "This futures does not allow trading",
+      "200"
+     ],
+     [
+      "20013",
+      "Function disabled due tp pending account deletion request",
+      "200"
+     ],
+     [
+      "20014",
+      "Account deleted",
+      "200"
+     ],
+     [
+      "20015",
+      "This futures is not supported",
+      "200"
+     ],
+     [
+      "20016",
+      "Batch order exceeded the max size",
+      "200"
+     ],
+     [
+      "30001",
+      "Failed to order. Please adjust the order price or the leverage as the order price dealt may immediately liquidate.",
+      "200"
+     ],
+     [
+      "30002",
+      "Price below liquidated price",
+      "200"
+     ],
+     [
+      "30003",
+      "Price above liquidated price",
+      "200"
+     ],
+     [
+      "30004",
+      "Position not exist",
+      "200"
+     ],
+     [
+      "30005",
+      "The trigger price is closer to the current price and may be triggered immediately",
+      "200"
+     ],
+     [
+      "30006",
+      "Please select TP or SL",
+      "200"
+     ],
+     [
+      "30007",
+      "TP trigger price is greater than average entry price",
+      "200"
+     ],
+     [
+      "30008",
+      "TP trigger price is less than average entry price",
+      "200"
+     ],
+     [
+      "30009",
+      "SL trigger price is less than average entry price",
+      "200"
+     ],
+     [
+      "30010",
+      "SL trigger price is greater than average entry price",
+      "200"
+     ],
+     [
+      "30011",
+      "Abnormal order status",
+      "200"
+     ],
+     [
+      "30012",
+      "Already added to favorite",
+      "200"
+     ],
+     [
+      "30013",
+      "Exceeded the maximum order quantity",
+      "200"
+     ],
+     [
+      "30014",
+      "Max Buy Order Price",
+      "200"
+     ],
+     [
+      "30015",
+      "Mini Sell Order Price",
+      "200"
+     ],
+     [
+      "30016",
+      "The qty should be larger than",
+      "200"
+     ],
+     [
+      "30017",
+      "The qty cannot be less than the minimum qty",
+      "200"
+     ],
+     [
+      "30018",
+      "Order failed. No position opened. Cancel [Reduce-only] settings and retry later",
+      "200"
+     ],
+     [
+      "30019",
+      "Order failed. A [Reduce-only] order can not be in the same direction as the open position",
+      "200"
+     ],
+     [
+      "30020",
+      "Trigger price for TP should be higher than mark price:",
+      "200"
+     ],
+     [
+      "30021",
+      "Trigger price for TP should be lower than mark price:",
+      "200"
+     ],
+     [
+      "30022",
+      "Trigger price for SL should be higher than mark price:",
+      "200"
+     ],
+     [
+      "30023",
+      "Trigger price fo SL should be lower than mark price:",
+      "200"
+     ],
+     [
+      "30024",
+      "Trigger price for SL should be lower than liq price:",
+      "200"
+     ],
+     [
+      "30025",
+      "Trigger price for SL should be higher than liq price:",
+      "200"
+     ],
+     [
+      "30026",
+      "TP price must be greater than last price:",
+      "200"
+     ],
+     [
+      "30027",
+      "TP price must be greater than mark price:",
+      "200"
+     ],
+     [
+      "30028",
+      "SL price must be less than last price:",
+      "200"
+     ],
+     [
+      "30029",
+      "SL price must be less than mark price:",
+      "200"
+     ],
+     [
+      "30030",
+      "SL price must be greater than last price:",
+      "200"
+     ],
+     [
+      "30031",
+      "SL price must be greater than mark price:",
+      "200"
+     ],
+     [
+      "30032",
+      "TP price must be less than last price:",
+      "200"
+     ],
+     [
+      "30033",
+      "TP price must be less than mark price:",
+      "200"
+     ],
+     [
+      "30034",
+      "TP price must be less than mark price:",
+      "200"
+     ],
+     [
+      "30035",
+      "SL price must be greater than trigger price:",
+      "200"
+     ],
+     [
+      "30036",
+      "TP price must be greater than trigger price:",
+      "200"
+     ],
+     [
+      "30037",
+      "TP price must be greater than trigger price:",
+      "200"
+     ],
+     [
+      "30038",
+      "TP/SL amount must be less than the size of the position.",
+      "200"
+     ],
+     [
+      "30039",
+      "The order qty can't be greater than the max order qty:",
+      "200"
+     ],
+     [
+      "30040",
+      "Futures trading is prohibited, please contact customer service.",
+      "200"
+     ],
+     [
+      "30041",
+      "Trigger price must be greater than 0",
+      "200"
+     ],
+     [
+      "30042",
+      "Client ID duplicate",
+      "200"
+     ],
+     [
+      "40001",
+      "Please cancel open orders and close all positions before canceling lead trading",
+      "200"
+     ],
+     [
+      "40002",
+      "Lead amount hast to be over the limits",
+      "200"
+     ],
+     [
+      "40003",
+      "Lead order amount exceeds the limits.",
+      "200"
+     ],
+     [
+      "40004",
+      "Please do not repeat the operation",
+      "200"
+     ],
+     [
+      "40005",
+      "Action is not available for the current user type.",
+      "200"
+     ],
+     [
+      "40006",
+      "Sub-account reaches the limit.",
+      "200"
+     ],
+     [
+      "40007",
+      "Share settlement is being processed,lease try again later",
+      "200"
+     ],
+     [
+      "40008",
+      "After the transfer, the account balance will be less than the order amount, please enter again.",
+      "200"
+     ]
+    ]
+   }
+  ]
+ },
+ "account__adjust_position_margin": {
+  "file": "account__adjust_position_margin",
+  "rate": "5 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/account/adjust_position_margin",
+  "tables": [
+   {
+    "before": "equest \u200bPOST /api/v1/futures/account/adjust_position_marginRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "marginCoin",
+      "string",
+      "true",
+      "Margin coin"
+     ],
+     [
+      "amount",
+      "string",
+      "true",
+      "Margin amount, positive means increase, and negative means decrease"
+     ],
+     [
+      "side",
+      "string",
+      "false",
+      "Position side LONG SHORT Either side or positionId required"
+     ],
+     [
+      "positionId",
+      "string",
+      "false",
+      "Position id Either side or positionId required"
+     ]
+    ]
+   },
+   {
+    "before": "CUSDT\",\"amount\":\"-100\",\"marginCoin\":\"USDT\",\"side\":\"LONG\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "N/A",
+      " |"
+     ]
+    ]
+   }
+  ]
+ },
+ "account__change_leverage": {
+  "file": "account__change_leverage",
+  "rate": "10 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/account/change_leverage",
+  "tables": [
+   {
+    "before": "lHTTP Request \u200bPOST /api/v1/futures/account/change_leverageRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "marginCoin",
+      "string",
+      "true",
+      "Margin coin"
+     ],
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "leverage",
+      "int",
+      "true",
+      "Leverage"
+     ]
+    ]
+   },
+   {
+    "before": "a '{\"symbol\":\"BTCUSDT\",\"leverage\":12,\"marginCoin\":\"USDT\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "marginCoin",
+      "string",
+      "Margin coin"
+     ],
+     [
+      "symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      "leverage",
+      "int",
+      "Leverage"
+     ]
+    ]
+   }
+  ]
+ },
+ "account__change_margin_mode": {
+  "file": "account__change_margin_mode",
+  "rate": "10 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/account/change_margin_mode",
+  "tables": [
+   {
+    "before": "TP Request \u200bPOST /api/v1/futures/account/change_margin_modeRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "marginMode",
+      "string",
+      "true",
+      "Margin Mode ISOLATION CROSS"
+     ],
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "marginCoin",
+      "string",
+      "true",
+      "Margin coin"
+     ]
+    ]
+   },
+   {
+    "before": "Mode\":\"ISOLATION\",\"symbol\":\"BTCUSDT\",\"marginCoin\":\"USDT\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "marginMode",
+      "string",
+      "Margin Mode ISOLATION CROSS"
+     ],
+     [
+      "symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      "marginCoin",
+      "string",
+      "Margin coin"
+     ]
+    ]
+   }
+  ]
+ },
+ "account__change_position_mode": {
+  "file": "account__change_position_mode",
+  "rate": "10 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/account/change_position_mode",
+  "tables": [
+   {
+    "before": " Request \u200bPOST /api/v1/futures/account/change_position_modeRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "positionMode",
+      "string",
+      "true",
+      "Position Mode ONE_WAY HEDGE"
+     ]
+    ]
+   },
+   {
+    "before": "pe: application/json\" \\  --data '{\"positionMode\":\"HEDGE\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "positionMode",
+      "string",
+      "Position Mode ONE_WAY HEDGE"
+     ]
+    ]
+   }
+  ]
+ },
+ "account__get_leverage_and_margin_mode": {
+  "file": "account__get_leverage_and_margin_mode",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/account/get_leverage_margin_mode",
+  "tables": [
+   {
+    "before": "quest \u200bGET /api/v1/futures/account/get_leverage_margin_modeRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "marginCoin",
+      "string",
+      "true",
+      "Margin coin"
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      "marginCoin",
+      "string",
+      "Margin coin"
+     ],
+     [
+      "leverage",
+      "int",
+      "leverage"
+     ],
+     [
+      "marginMode",
+      "string",
+      "ISOLATION or CROSS"
+     ]
+    ]
+   }
+  ]
+ },
+ "account__get_single_account": {
+  "file": "account__get_single_account",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/account",
+  "tables": [
+   {
+    "before": "given 'marginCoin'HTTP Request \u200bGET /api/v1/futures/accountRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "marginCoin",
+      "string",
+      "true",
+      "Margin coin"
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "marginCoin",
+      "string",
+      "Margin Coin"
+     ],
+     [
+      "available",
+      "string",
+      "Available quantity in the account. This field + crossUnrealizedPNL = Actual maximum open amount"
+     ],
+     [
+      "frozen",
+      "string",
+      "locked quantity of orders"
+     ],
+     [
+      "margin",
+      "string",
+      "locked quantity of positions"
+     ],
+     [
+      "transfer",
+      "string",
+      "Maximum transferable amount"
+     ],
+     [
+      "positionMode",
+      "string",
+      "Position mode ONE_WAY HEDGE"
+     ],
+     [
+      "crossUnrealizedPNL",
+      "string",
+      "unrealizedPNL for cross positions"
+     ],
+     [
+      "isolationUnrealizedPNL",
+      "string",
+      "unrealizedPNL for isolation positions"
+     ],
+     [
+      "bonus",
+      "string",
+      "Futures Bonus"
+     ]
+    ]
+   }
+  ]
+ },
+ "account__get_trading_settings": {
+  "file": "account__get_trading_settings",
+  "rate": "20 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/account/trading_settings",
+  "tables": [
+   {
+    "before": ".HTTP Request \u200bGET /api/v1/futures/account/trading_settingsRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbols",
+      "string",
+      "false",
+      "Trading pair symbols, comma-separated (e.g. BTCUSDT,ETHUSDT). Case-insensitive. Max 50 symbols. If omitted, returns all user trading settings."
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "code",
+      "integer",
+      "Response code. 0 means success"
+     ],
+     [
+      "msg",
+      "string",
+      "Response message"
+     ],
+     [
+      "data",
+      "list",
+      "Trading settings list"
+     ],
+     [
+      ">symbol",
+      "string",
+      "Trading pair symbol"
+     ],
+     [
+      ">marginCoin",
+      "string",
+      "Margin coin (settlement coin)"
+     ],
+     [
+      ">marginMode",
+      "string",
+      "Margin mode CROSS: cross margin ISOLATION: isolated margin"
+     ],
+     [
+      ">leverage",
+      "int",
+      "Leverage (legacy / one-way field)"
+     ],
+     [
+      ">longLeverage",
+      "int",
+      "Long leverage in hedge mode"
+     ],
+     [
+      ">shortLeverage",
+      "int",
+      "Short leverage in hedge mode"
+     ]
+    ]
+   }
+  ]
+ },
+ "common__introduction": {
+  "file": "common__introduction",
+  "rate": null,
+  "tables": [
+   {
+    "before": "Key.API domain name \u200bYou can do this yourself using the Rest API access method. ",
+    "header": [
+     "Domain Name",
+     "REST API"
+    ],
+    "rows": [
+     [
+      "Primary Domain",
+      "https://fapi.bitunix.com"
+     ]
+    ]
+   }
+  ]
+ },
+ "common__sign": {
+  "file": "common__sign",
+  "rate": null,
+  "tables": [
+   {
+    "before": "cial demo provided.Github DemoRestful API Signature Public Parameters \u200bHeaders: ",
+    "header": [
+     "Name",
+     "Types",
+     "Mandatory",
+     "Description"
+    ],
+    "rows": [
+     [
+      "api-key",
+      "string",
+      "Y",
+      "api-key applied"
+     ],
+     [
+      "nonce",
+      "string",
+      "Y",
+      "Random string\uff0c64bits"
+     ],
+     [
+      "timestamp",
+      "string",
+      "Y",
+      "Current timestamp, milliseconds,The request timestamp must be within 60,000 ms of the server time."
+     ],
+     [
+      "sign",
+      "string",
+      "Y",
+      "Singanture string"
+     ]
+    ]
+   },
+   {
+    "before": ", and the following fields need to be included in all request parameter params: ",
+    "header": [
+     "Name",
+     "Type",
+     "Mandatory",
+     "Description"
+    ],
+    "rows": [
+     [
+      "apiKey",
+      "string",
+      "Y",
+      "API Key"
+     ],
+     [
+      "timestamp",
+      "string",
+      "Y",
+      "Timestapmp"
+     ],
+     [
+      "nonce",
+      "string",
+      "Y",
+      "Random string"
+     ],
+     [
+      "sign",
+      "string",
+      "Y",
+      "Signature string"
+     ]
+    ]
+   }
+  ]
+ },
+ "log__change_log": {
+  "file": "log__change_log",
+  "rate": null,
+  "tables": []
+ },
+ "market__get_depth": {
+  "file": "market__get_depth",
+  "rate": "10 req/sec/ip",
+  "method": "GET",
+  "path": "/api/v1/futures/market/depth",
+  "tables": [
+   {
+    "before": "e order book.HTTP Request \u200bGET /api/v1/futures/market/depthRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair, based on the symbolName, i.e. BTCUSDT"
+     ],
+     [
+      "limit",
+      "string",
+      "false",
+      "Fixed gear enumeration value: 1/5/15/50/max, passing max returns the maximum gear of the trading pairWhen the actual depth does not meet the limit, return according to the actual gear . If max is passed in, the maximum level of the trading pair will be returned."
+     ]
+    ]
+   },
+   {
+    "before": ".com/api/v1/futures/market/depth?symbol=BTCUSDT&limit=max'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "asks.index[0]",
+      "string",
+      "ask price"
+     ],
+     [
+      "asks.index[1]",
+      "string",
+      "ask amount"
+     ],
+     [
+      "bids.index[0]",
+      "string",
+      "bid price"
+     ],
+     [
+      "bids.index[1]",
+      "string",
+      "bid amount"
+     ]
+    ]
+   }
+  ]
+ },
+ "market__get_funding_rate": {
+  "file": "market__get_funding_rate",
+  "rate": "10 req/sec/ip",
+  "method": "GET",
+  "path": "/api/v1/futures/market/funding_rate",
+  "tables": [
+   {
+    "before": "ntractHTTP Request \u200bGET /api/v1/futures/market/funding_rateRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair, based on the symbolName, i.e. BTCUSDT"
+     ]
+    ]
+   },
+   {
+    "before": "nix.com/api/v1/futures/market/funding_rate?symbol=BTCUSDT'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "Coin pair"
+     ],
+     [
+      "markPrice",
+      "decimal",
+      "mark price"
+     ],
+     [
+      "lastPrice",
+      "decimal",
+      "last price"
+     ],
+     [
+      "indexPrice",
+      "decimal",
+      "index price"
+     ],
+     [
+      "fundingRate",
+      "decimal",
+      "Current funding rates"
+     ],
+     [
+      "nextFundingTime",
+      "int64",
+      "next Funding settlement time(ms)"
+     ],
+     [
+      "fundingInterval",
+      "int32",
+      "funding settlement interval(hour)"
+     ],
+     [
+      "maxFundingRate",
+      "decimal",
+      "Max Current Funding Rate"
+     ],
+     [
+      "minFundingRate",
+      "decimal",
+      "Min Current Funding Rate"
+     ]
+    ]
+   }
+  ]
+ },
+ "market__get_funding_rate_batch": {
+  "file": "market__get_funding_rate_batch",
+  "rate": "10 req/sec/ip",
+  "method": "GET",
+  "path": "/api/v1/futures/market/funding_rate/batch",
+  "tables": [
+   {
+    "before": "fapi.bitunix.com/api/v1/futures/market/funding_rate/batch'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "Coin pair"
+     ],
+     [
+      "markPrice",
+      "decimal",
+      "mark price"
+     ],
+     [
+      "lastPrice",
+      "decimal",
+      "last price"
+     ],
+     [
+      "indexPrice",
+      "decimal",
+      "index price"
+     ],
+     [
+      "fundingRate",
+      "decimal",
+      "Current funding rates"
+     ],
+     [
+      "nextFundingTime",
+      "int64",
+      "next Funding settlement time(ms)"
+     ],
+     [
+      "fundingInterval",
+      "int32",
+      "funding settlement interval(hour)"
+     ],
+     [
+      "maxFundingRate",
+      "decimal",
+      "Max Current Funding Rate"
+     ],
+     [
+      "minFundingRate",
+      "decimal",
+      "Min Current Funding Rate"
+     ]
+    ]
+   }
+  ]
+ },
+ "market__get_funding_rate_history": {
+  "file": "market__get_funding_rate_history",
+  "rate": "10 req/sec/ip",
+  "method": "GET",
+  "path": "/api/v1/futures/market/get_funding_rate_history",
+  "tables": [
+   {
+    "before": "equest \u200bGET /api/v1/futures/market/get_funding_rate_historyRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair, based on the symbolName, i.e. BTCUSDT"
+     ],
+     [
+      "startTime",
+      "int64",
+      "false",
+      "Start timestamp(Funding settle time)Unix timestamp in milliseconds format, e.g. 1597026383085"
+     ],
+     [
+      "endTime",
+      "int64",
+      "false",
+      "End timestamp(Funding settle time)Unix timestamp in milliseconds format, e.g. 1597026383085"
+     ],
+     [
+      "limit",
+      "int32",
+      "false",
+      "Default: 100,Maximum: 200"
+     ]
+    ]
+   },
+   {
+    "before": "s/market/get_funding_rate_history?symbol=BTCUSDT&limit=10'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "markPrice",
+      "string",
+      "Mark price"
+     ],
+     [
+      "fundingRate",
+      "string",
+      "Funding rate"
+     ],
+     [
+      "fundingTime",
+      "int64",
+      "Funding timestamp"
+     ]
+    ]
+   }
+  ]
+ },
+ "market__get_kline": {
+  "file": "market__get_kline",
+  "rate": "10 req/sec/ip",
+  "method": "GET",
+  "path": "/api/v1/futures/market/kline",
+  "tables": [
+   {
+    "before": "line history.HTTP Request \u200bGET /api/v1/futures/market/klineRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair, based on the symbolName, i.e. BTCUSDT"
+     ],
+     [
+      "endTime",
+      "int64",
+      "false",
+      "Exclusive end bound. Query limit klines before this time. Unix timestamp in milliseconds, e.g. 1672410000000. Best practice: align to the interval open time. If omitted, the current forming candle open time is used"
+     ],
+     [
+      "interval",
+      "string",
+      "true",
+      "kline interval such as 1m 5m 15m 30m 1h 2h 4h 6h 8h 12h 1d 3d 1w 1M"
+     ],
+     [
+      "limit",
+      "int",
+      "false",
+      "Number of klines to return, counting backward from endTime. Default: 100, maximum: 200"
+     ],
+     [
+      "type",
+      "string",
+      "false",
+      "Kline type, values: LAST_PRICE, MARK_PRICE; default: LAST_PRICE"
+     ]
+    ]
+   },
+   {
+    "before": "utures/market/kline?symbol=BTCUSDT&interval=15m&limit=100'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "open",
+      "string",
+      "open price"
+     ],
+     [
+      "high",
+      "string",
+      "high price"
+     ],
+     [
+      "low",
+      "string",
+      "low price"
+     ],
+     [
+      "close",
+      "string",
+      "close price"
+     ],
+     [
+      "quoteVol",
+      "string",
+      "Trading amount (quote currency turnover) for the kline period"
+     ],
+     [
+      "baseVol",
+      "string",
+      "Trading volume (base coin) for the kline period"
+     ],
+     [
+      "time",
+      "int64",
+      "Candle open time, Unix timestamp in milliseconds. This is the open time, not the close time. Only closed candles are returned; the candle that is still forming is not included."
+     ]
+    ]
+   }
+  ]
+ },
+ "market__get_tickers": {
+  "file": "market__get_tickers",
+  "rate": "10 req/sec/ip",
+  "method": "GET",
+  "path": "/api/v1/futures/market/tickers",
+  "tables": [
+   {
+    "before": "ir tickers.HTTP Request \u200bGET /api/v1/futures/market/tickersRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbols",
+      "string",
+      "false",
+      "Trading pairs, based on the symbolName, i.e. BTCUSDT,ETHUSDT,XRPUSDT"
+     ]
+    ]
+   },
+   {
+    "before": "com/api/v1/futures/market/tickers?symbols=BTCUSDT,ETHUSDT'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "Coin pair name i.e. BTCUSDT"
+     ],
+     [
+      "markPrice",
+      "string",
+      "mark price"
+     ],
+     [
+      "lastPrice",
+      "string",
+      "last price"
+     ],
+     [
+      "open",
+      "string",
+      "Entry price of the last 24 hours"
+     ],
+     [
+      "last",
+      "string",
+      "last price"
+     ],
+     [
+      "quoteVol",
+      "string",
+      "Trading volume of the coin(last 24 hours)"
+     ],
+     [
+      "baseVol",
+      "string",
+      "Trading volume of the last 24 hours"
+     ],
+     [
+      "high",
+      "string",
+      "24h high"
+     ],
+     [
+      "low",
+      "string",
+      "24h low"
+     ]
+    ]
+   }
+  ]
+ },
+ "market__get_trading_pairs": {
+  "file": "market__get_trading_pairs",
+  "rate": "10 req/sec/ip",
+  "method": "GET",
+  "path": "/api/v1/futures/market/trading_pairs",
+  "tables": [
+   {
+    "before": "ails.HTTP Request \u200bGET /api/v1/futures/market/trading_pairsRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbols",
+      "string",
+      "false",
+      "Trading pairs, based on the symbolName, i.e. BTCUSDT,ETHUSDT,XRPUSDT"
+     ]
+    ]
+   },
+   {
+    "before": "i/v1/futures/market/trading_pairs?symbols=BTCUSDT,ETHUSDT'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "Coin pair name i.e. BTCUSDT"
+     ],
+     [
+      "base",
+      "string",
+      "Base currency Specifically refers to ETH as in ETHUSDT"
+     ],
+     [
+      "quote",
+      "string",
+      "Base currency Specifically refers to USDT as in ETHUSDT"
+     ],
+     [
+      "minTradeVolume",
+      "string",
+      "Minimum opening amount (base currency)"
+     ],
+     [
+      "minBuyPriceOffset",
+      "string",
+      "Minimum price offset for buy orders"
+     ],
+     [
+      "maxSellPriceOffset",
+      "string",
+      "Maximum price offset for sell orders"
+     ],
+     [
+      "maxLimitOrderVolume",
+      "string",
+      "Maximum limit order base amount"
+     ],
+     [
+      "maxMarketOrderVolume",
+      "string",
+      "Maximum market order base amount"
+     ],
+     [
+      "basePrecision",
+      "int",
+      "Max precision of opening amount"
+     ],
+     [
+      "quotePrecision",
+      "int",
+      "Max precision of order price"
+     ],
+     [
+      "maxLeverage",
+      "int",
+      "Max leverage"
+     ],
+     [
+      "minLeverage",
+      "int",
+      "Min leverage"
+     ],
+     [
+      "defaultLeverage",
+      "int",
+      "Default Leverage"
+     ],
+     [
+      "defaultMarginMode",
+      "string",
+      "Default margin mode Isolation Cross"
+     ],
+     [
+      "priceProtectScope",
+      "string",
+      "Price protection scope. For example: current mark price is:10000 priceProtectScope=0.02, the minimum sell order price = 10000*(1-0.02)=9800; the maximum buy order price = 10000*(1+0.02) = 10200"
+     ],
+     [
+      "symbolStatus",
+      "string",
+      "OPEN: trade normal CANCEL_ONLY: cancel only STOP: can't open/close position"
+     ],
+     [
+      "isApiSupported",
+      "bool",
+      "true: API Trading Enabled false: API Trading Disabled"
+     ],
+     [
+      "maxFundingRate",
+      "decimal",
+      "Max Current Funding Rate"
+     ],
+     [
+      "minFundingRate",
+      "decimal",
+      "Min Current Funding Rate"
+     ],
+     [
+      "launchTime",
+      "long",
+      "Contract launch time. Unix timestamp in milliseconds (UTC). null: uptime not configured"
+     ],
+     [
+      "delistTime",
+      "long",
+      "Scheduled contract delisting time. Unix timestamp in milliseconds (UTC). Omitted: delisting time not configured or cleared"
+     ]
+    ]
+   }
+  ]
+ },
+ "position__get_history_positions": {
+  "file": "position__get_history_positions",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/position/get_history_positions",
+  "tables": [
+   {
+    "before": "Request \u200bGET /api/v1/futures/position/get_history_positionsRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ],
+     [
+      "positionId",
+      "string",
+      "false",
+      "position id"
+     ],
+     [
+      "startTime",
+      "int64",
+      "false",
+      "Start timestamp(position create time)Unix timestamp in milliseconds format, e.g. 1597026383085"
+     ],
+     [
+      "endTime",
+      "int64",
+      "false",
+      "Start timestamp(position create time)Unix timestamp in milliseconds format, e.g. 1597026683085"
+     ],
+     [
+      "skip",
+      "int64",
+      "false",
+      "skip order count default: 0"
+     ],
+     [
+      "limit",
+      "int64",
+      "false",
+      "Number of queries: Maximum: 100, default: 10"
+     ],
+     [
+      "subAccountId",
+      "int64",
+      "false",
+      "With subAccountUid: returns historical positions for that sub-account only.Without subAccountUid: returns historical positions for the main account."
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "positionList",
+      "list",
+      "position list"
+     ],
+     [
+      ">positionId",
+      "string",
+      "position id"
+     ],
+     [
+      ">symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      ">maxQty",
+      "string",
+      "max position amount"
+     ],
+     [
+      ">entryPrice",
+      "string",
+      "average entry price"
+     ],
+     [
+      ">closePrice",
+      "string",
+      "average close price"
+     ],
+     [
+      ">liqQty",
+      "string",
+      "liquidate quantity"
+     ],
+     [
+      ">side",
+      "string",
+      "LONG SHORT"
+     ],
+     [
+      ">marginMode",
+      "string",
+      "ISOLATION CROSS"
+     ],
+     [
+      ">positionMode",
+      "string",
+      "ONE_WAY HEDGE"
+     ],
+     [
+      ">leverage",
+      "int32",
+      "leverage"
+     ],
+     [
+      ">fee",
+      "string",
+      "Deducted transaction fees: transaction fees deducted during the position"
+     ],
+     [
+      ">funding",
+      "string",
+      "total funding fee during the position"
+     ],
+     [
+      ">realizedPNL",
+      "string",
+      "Realized PnL(exclude funding fee and transaction fee)"
+     ],
+     [
+      ">liqPrice",
+      "string",
+      "Estimated liquidation priceIf the value <= 0, it means the position is at low risk and there is no liquidation price at this time"
+     ],
+     [
+      ">ctime",
+      "int64",
+      "create timestamp"
+     ],
+     [
+      ">mtime",
+      "int64",
+      "latest modify timestamp"
+     ],
+     [
+      ">subAccountId",
+      "int64",
+      "position account id"
+     ],
+     [
+      "total",
+      "int64",
+      "total count"
+     ]
+    ]
+   }
+  ]
+ },
+ "position__get_pending_positions": {
+  "file": "position__get_pending_positions",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/position/get_pending_positions",
+  "tables": [
+   {
+    "before": "Request \u200bGET /api/v1/futures/position/get_pending_positionsRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ],
+     [
+      "positionId",
+      "string",
+      "false",
+      "position id"
+     ],
+     [
+      "subAccountId",
+      "int64",
+      "false",
+      "With subAccountUid: returns positions for that sub-account only. Without subAccountUid:returns positions for the main account and all sub-accounts the current API Key can access."
+     ],
+     [
+      "includeSubAccounts",
+      "bool",
+      "false",
+      "enable or disable sub-account query"
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "positionId",
+      "string",
+      "position id"
+     ],
+     [
+      "symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      "qty",
+      "string",
+      "position amount"
+     ],
+     [
+      "entryValue",
+      "string",
+      "Available amount for positions"
+     ],
+     [
+      "side",
+      "string",
+      "LONG SHORT"
+     ],
+     [
+      "marginMode",
+      "string",
+      "ISOLATION CROSS"
+     ],
+     [
+      "positionMode",
+      "string",
+      "ONE_WAY HEDGE"
+     ],
+     [
+      "leverage",
+      "int32",
+      "leverage"
+     ],
+     [
+      "fee",
+      "string",
+      "Deducted transaction fees: transaction fees deducted during the position"
+     ],
+     [
+      "funding",
+      "string",
+      "total funding fee during the position"
+     ],
+     [
+      "realizedPNL",
+      "string",
+      "Realized PnL(exclude funding fee and transaction fee)"
+     ],
+     [
+      "margin",
+      "string",
+      "locked asset of the position"
+     ],
+     [
+      "unrealizedPNL",
+      "string",
+      "Unrealized PnL"
+     ],
+     [
+      "liqPrice",
+      "string",
+      "Estimated liquidation priceIf the value <= 0, it means the position is at low risk and there is no liquidation price at this time"
+     ],
+     [
+      "marginRate",
+      "string",
+      "Margin ratio"
+     ],
+     [
+      "avgOpenPrice",
+      "string",
+      "Average open price"
+     ],
+     [
+      "ctime",
+      "int64",
+      "create timestamp"
+     ],
+     [
+      "mtime",
+      "int64",
+      "latest modify timestamp"
+     ],
+     [
+      "subAccountId",
+      "int64",
+      "position account id"
+     ]
+    ]
+   }
+  ]
+ },
+ "position__get_position_tiers": {
+  "file": "position__get_position_tiers",
+  "rate": "10 req/sec/ip",
+  "method": "GET",
+  "path": "/api/v1/futures/position/get_position_tiers",
+  "tables": [
+   {
+    "before": "TP Request \u200bGET /api/v1/futures/position/get_position_tiersRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ]
+    ]
+   },
+   {
+    "before": "api/v1/futures/position/get_position_tiers?symbol=BTCUSDT'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      "level",
+      "int32",
+      "level"
+     ],
+     [
+      "startValue",
+      "string",
+      "Minimum value"
+     ],
+     [
+      "endValue",
+      "string",
+      "Maximum value"
+     ],
+     [
+      "leverage",
+      "int32",
+      "leverage"
+     ],
+     [
+      "maintenanceMarginRate",
+      "string",
+      "Maintenance margin rate: The margin amount corresponds to the position quantity tier. When the margin rate of a position is less than the maintenance margin rate, it will trigger a forced partial liquidation or full liquidation."
+     ]
+    ]
+   }
+  ]
+ },
+ "tp_sl__cancel_tp_sl_order": {
+  "file": "tp_sl__cancel_tp_sl_order",
+  "rate": "10 req/sec/UID",
+  "method": "POST",
+  "path": "/api/v1/futures/tpsl/cancel_order",
+  "tables": [
+   {
+    "before": "ration.HTTP Request \u200bPOST /api/v1/futures/tpsl/cancel_orderRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "coin Pair"
+     ],
+     [
+      "orderId",
+      "string",
+      "true",
+      "TP/SL Order ID"
+     ]
+    ]
+   },
+   {
+    "before": "tion/json\" \\  --data '{\"symbol\":\"BTCUSDT\",\"orderId\":\"12\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "TP/SL Order ID"
+     ]
+    ]
+   }
+  ]
+ },
+ "tp_sl__get_history_tp_sl_order": {
+  "file": "tp_sl__get_history_tp_sl_order",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/tpsl/get_history_orders",
+  "tables": [
+   {
+    "before": "erHTTP Request \u200bGET /api/v1/futures/tpsl/get_history_ordersRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ],
+     [
+      "side",
+      "int32",
+      "false",
+      "order side"
+     ],
+     [
+      "positionMode",
+      "int32",
+      "false",
+      "order position mode"
+     ],
+     [
+      "startTime",
+      "int64",
+      "false",
+      "Start timestampUnix timestamp in milliseconds format, e.g. 1597026383085"
+     ],
+     [
+      "endTime",
+      "int64",
+      "false",
+      "Start timestampUnix timestamp in milliseconds format, e.g. 1597026683085"
+     ],
+     [
+      "skip",
+      "int64",
+      "false",
+      "skip order count default: 0"
+     ],
+     [
+      "limit",
+      "int64",
+      "false",
+      "Number of queries: Maximum: 100, default: 10"
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderList",
+      "list",
+      "TP/SL order List"
+     ],
+     [
+      ">id",
+      "string",
+      "order id"
+     ],
+     [
+      ">positionId",
+      "string",
+      "position id"
+     ],
+     [
+      ">symbol",
+      "string",
+      "coin pair"
+     ],
+     [
+      ">base",
+      "string",
+      "base"
+     ],
+     [
+      ">quote",
+      "string",
+      "quote"
+     ],
+     [
+      ">tpPrice",
+      "string",
+      "Take-profit trigger price"
+     ],
+     [
+      ">tpStopType",
+      "string",
+      "Take-profit trigger typeLAST_PRICEMARK_PRICE"
+     ],
+     [
+      ">slPrice",
+      "string",
+      "Stop-loss trigger price"
+     ],
+     [
+      ">slStopType",
+      "string",
+      "Stop-loss trigger typeLAST_PRICEMARK_PRICE"
+     ],
+     [
+      ">tpOrderType",
+      "string",
+      "Take-profit order typeLIMITMARKET Default is market."
+     ],
+     [
+      ">tpOrderPrice",
+      "string",
+      "Take-profit order price"
+     ],
+     [
+      ">slOrderType",
+      "string",
+      "Stop-loss order typeLIMITMARKET Default is market."
+     ],
+     [
+      ">slOrderPrice",
+      "string",
+      "Stop-loss order price"
+     ],
+     [
+      ">tpQty",
+      "string",
+      "Take-profit order quantity(base coin)At least one of tpQty or slQty is required."
+     ],
+     [
+      ">slQty",
+      "string",
+      "Stop-loss order quantity(base coin)At least one of tpQty or slQty is required."
+     ],
+     [
+      ">status",
+      "string",
+      "TP/SL order status"
+     ],
+     [
+      ">ctime",
+      "int64",
+      "create timestamp"
+     ],
+     [
+      ">triggerTime",
+      "int64",
+      "trigger time timestamp"
+     ],
+     [
+      "total",
+      "int64",
+      "total"
+     ]
+    ]
+   }
+  ]
+ },
+ "tp_sl__get_pending_tp_sl_order": {
+  "file": "tp_sl__get_pending_tp_sl_order",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/tpsl/get_pending_orders",
+  "tables": [
+   {
+    "before": "erHTTP Request \u200bGET /api/v1/futures/tpsl/get_pending_ordersRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ],
+     [
+      "positionId",
+      "string",
+      "false",
+      "position id"
+     ],
+     [
+      "side",
+      "int32",
+      "false",
+      "order side"
+     ],
+     [
+      "positionMode",
+      "int32",
+      "false",
+      "order position mode"
+     ],
+     [
+      "skip",
+      "int64",
+      "false",
+      "skip order count default: 0"
+     ],
+     [
+      "limit",
+      "int64",
+      "false",
+      "Number of queries: Maximum: 100, default: 10"
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "id",
+      "string",
+      "order id"
+     ],
+     [
+      "positionId",
+      "string",
+      "position id"
+     ],
+     [
+      "symbol",
+      "string",
+      "coin pair"
+     ],
+     [
+      "base",
+      "string",
+      "base"
+     ],
+     [
+      "quote",
+      "string",
+      "quote"
+     ],
+     [
+      "tpPrice",
+      "string",
+      "Take-profit trigger price"
+     ],
+     [
+      "tpStopType",
+      "string",
+      "Take-profit trigger typeLAST_PRICEMARK_PRICE"
+     ],
+     [
+      "slPrice",
+      "string",
+      "Stop-loss trigger price"
+     ],
+     [
+      "slStopType",
+      "string",
+      "Stop-loss trigger typeLAST_PRICEMARK_PRICE"
+     ],
+     [
+      "tpOrderType",
+      "string",
+      "Take-profit order typeLIMITMARKET Default is market."
+     ],
+     [
+      "tpOrderPrice",
+      "string",
+      "Take-profit order price"
+     ],
+     [
+      "slOrderType",
+      "string",
+      "Stop-loss order typeLIMITMARKET Default is market."
+     ],
+     [
+      "slOrderPrice",
+      "string",
+      "Stop-loss order price"
+     ],
+     [
+      "tpQty",
+      "string",
+      "Take-profit order quantity(base coin)At least one of tpQty or slQty is required."
+     ],
+     [
+      "slQty",
+      "string",
+      "Stop-loss order quantity(base coin)At least one of tpQty or slQty is required."
+     ]
+    ]
+   }
+  ]
+ },
+ "tp_sl__modify_position_tp_sl_order": {
+  "file": "tp_sl__modify_position_tp_sl_order",
+  "rate": "20 req/sec/UID",
+  "method": "POST",
+  "path": "/api/v1/futures/tpsl/position/modify_order",
+  "tables": [
+   {
+    "before": "TP Request \u200bPOST /api/v1/futures/tpsl/position/modify_orderRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "positionId",
+      "string",
+      "true",
+      "Position ID associated with take-profit and stop-loss"
+     ],
+     [
+      "tpPrice",
+      "string",
+      "false",
+      "Take-profit trigger priceAt least one of tpPrice or slPrice is required."
+     ],
+     [
+      "tpStopType",
+      "string",
+      "false",
+      "Take-profit trigger typeLAST_PRICEMARK_PRICE Default is market price."
+     ],
+     [
+      "slPrice",
+      "string",
+      "false",
+      "Stop-loss trigger priceAt least one of tpPrice or slPrice is required."
+     ],
+     [
+      "slStopType",
+      "string",
+      "false",
+      "Stop-loss trigger typeLAST_PRICEMARK_PRICE Default is market price."
+     ]
+    ]
+   },
+   {
+    "before": "pe\":\"LAST_PRICE\",\"slPrice\":\"9\",\"slStopType\":\"LAST_PRICE\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "TP/SL Order ID"
+     ]
+    ]
+   }
+  ]
+ },
+ "tp_sl__modify_tp_sl_order": {
+  "file": "tp_sl__modify_tp_sl_order",
+  "rate": "20 req/sec/UID",
+  "method": "POST",
+  "path": "/api/v1/futures/tpsl/modify_order",
+  "tables": [
+   {
+    "before": "L OrderHTTP Request \u200bPOST /api/v1/futures/tpsl/modify_orderRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "true",
+      "TP/SL Order ID"
+     ],
+     [
+      "tpPrice",
+      "string",
+      "false",
+      "Take-profit trigger priceAt least one of tpPrice or slPrice is required."
+     ],
+     [
+      "tpStopType",
+      "string",
+      "false",
+      "Take-profit trigger typeLAST_PRICEMARK_PRICE Default is market price."
+     ],
+     [
+      "slPrice",
+      "string",
+      "false",
+      "Stop-loss trigger priceAt least one of tpPrice or slPrice is required."
+     ],
+     [
+      "slStopType",
+      "string",
+      "false",
+      "Stop-loss trigger typeLAST_PRICEMARK_PRICE Default is market price."
+     ],
+     [
+      "tpOrderType",
+      "string",
+      "false",
+      "Take-profit order typeLIMITMARKET Default is market."
+     ],
+     [
+      "tpOrderPrice",
+      "string",
+      "false",
+      "Take-profit order price"
+     ],
+     [
+      "slOrderType",
+      "string",
+      "false",
+      "Stop-loss order typeLIMITMARKET Default is market."
+     ],
+     [
+      "slOrderPrice",
+      "string",
+      "false",
+      "Stop-loss order price"
+     ],
+     [
+      "tpQty",
+      "string",
+      "false",
+      "Take-profit order quantity(base coin)At least one of tpQty or slQty is required."
+     ],
+     [
+      "slQty",
+      "string",
+      "false",
+      "Stop-loss order quantity(base coin)At least one of tpQty or slQty is required."
+     ]
+    ]
+   },
+   {
+    "before": "Type\":\"LIMIT\",\"slOrderPrice\":\"8\",\"tpQty\":\"1\",\"slQty\":\"1\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "TP/SL Order ID"
+     ]
+    ]
+   }
+  ]
+ },
+ "tp_sl__place_position_tp_sl_order": {
+  "file": "tp_sl__place_position_tp_sl_order",
+  "rate": "20 req/sec/UID",
+  "method": "POST",
+  "path": "/api/v1/futures/tpsl/position/place_order",
+  "tables": [
+   {
+    "before": "TTP Request \u200bPOST /api/v1/futures/tpsl/position/place_orderRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "positionId",
+      "string",
+      "true",
+      "Position ID associated with take-profit and stop-loss"
+     ],
+     [
+      "tpPrice",
+      "string",
+      "false",
+      "Take-profit trigger priceAt least one of tpPrice or slPrice is required."
+     ],
+     [
+      "tpStopType",
+      "string",
+      "false",
+      "Take-profit trigger typeLAST_PRICEMARK_PRICE Default is market price."
+     ],
+     [
+      "slPrice",
+      "string",
+      "false",
+      "Stop-loss trigger priceAt least one of tpPrice or slPrice is required."
+     ],
+     [
+      "slStopType",
+      "string",
+      "false",
+      "Stop-loss trigger typeLAST_PRICEMARK_PRICE Default is market price."
+     ]
+    ]
+   },
+   {
+    "before": "pe\":\"LAST_PRICE\",\"slPrice\":\"9\",\"slStopType\":\"LAST_PRICE\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "TP/SL Order ID"
+     ]
+    ]
+   }
+  ]
+ },
+ "tp_sl__place_tp_sl_order": {
+  "file": "tp_sl__place_tp_sl_order",
+  "rate": "20 req/sec/UID",
+  "method": "POST",
+  "path": "/api/v1/futures/tpsl/place_order",
+  "tables": [
+   {
+    "before": "SL OrderHTTP Request \u200bPOST /api/v1/futures/tpsl/place_orderRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "positionId",
+      "string",
+      "true",
+      "Position ID associated with take-profit and stop-loss"
+     ],
+     [
+      "tpPrice",
+      "string",
+      "false",
+      "Take-profit trigger priceAt least one of tpPrice or slPrice is required."
+     ],
+     [
+      "tpStopType",
+      "string",
+      "false",
+      "Take-profit trigger typeLAST_PRICEMARK_PRICE Default is market price."
+     ],
+     [
+      "slPrice",
+      "string",
+      "false",
+      "Stop-loss trigger priceAt least one of tpPrice or slPrice is required."
+     ],
+     [
+      "slStopType",
+      "string",
+      "false",
+      "Stop-loss trigger typeLAST_PRICEMARK_PRICE Default is market price."
+     ],
+     [
+      "tpOrderType",
+      "string",
+      "false",
+      "Take-profit order typeLIMITMARKET Default is market."
+     ],
+     [
+      "tpOrderPrice",
+      "string",
+      "false",
+      "Take-profit order price"
+     ],
+     [
+      "slOrderType",
+      "string",
+      "false",
+      "Stop-loss order typeLIMITMARKET Default is market."
+     ],
+     [
+      "slOrderPrice",
+      "string",
+      "false",
+      "Stop-loss order price"
+     ],
+     [
+      "tpQty",
+      "string",
+      "false",
+      "Take-profit order quantity(base coin)At least one of tpQty or slQty is required."
+     ],
+     [
+      "slQty",
+      "string",
+      "false",
+      "Stop-loss order quantity(base coin)At least one of tpQty or slQty is required."
+     ]
+    ]
+   },
+   {
+    "before": "Type\":\"LIMIT\",\"slOrderPrice\":\"8\",\"tpQty\":\"1\",\"slQty\":\"1\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "TP/SL Order ID"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__batch_order": {
+  "file": "trade__batch_order",
+  "rate": "2 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/trade/batch_order",
+  "tables": [
+   {
+    "before": "e orderHTTP Request \u200bPOST /api/v1/futures/trade/batch_orderRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "orderList",
+      "list",
+      "true",
+      "Order list, maximum length: 5"
+     ],
+     [
+      ">qty",
+      "string",
+      "true",
+      "Amount (base coin)"
+     ],
+     [
+      ">price",
+      "string",
+      "false",
+      "Price of the order.Required if the order type is LIMIT"
+     ],
+     [
+      ">side",
+      "string",
+      "true",
+      "Order directionbuy: BUYsell: SELL"
+     ],
+     [
+      ">tradeSide",
+      "string",
+      "true",
+      "DirectionOnly required in hedge-modeOpen and Close Notes:For open long, side fill in\"BUY\"; tradeSide should be \"OPEN\"For open short, side fill in \"SELL\"; tradeSide should be \"OPEN\"For close long, side fill in \"BUY\"; tradeSide should be \"CLOSE\"For close short, side fill in \"SELL\";tradeSide should be \"CLOSE\""
+     ],
+     [
+      ">positionId",
+      "string",
+      "false",
+      "Position IDOnly required when \"tradeSide\" is \"CLOSE\""
+     ],
+     [
+      ">orderType",
+      "string",
+      "true",
+      "Order typeLIMIT: limit ordersMARKET: market orders"
+     ],
+     [
+      ">effect",
+      "string",
+      "false",
+      "Order expiration date.Required if the orderType is limitIOC: Immediate or cancelFOK: Fill or killGTC: Good till canceled(default value)POST_ONLY: POST only"
+     ],
+     [
+      ">clientId",
+      "string",
+      "false",
+      "Customize order ID"
+     ],
+     [
+      ">reduceOnly",
+      "boolean",
+      "false",
+      "Whether or not to just reduce the position"
+     ],
+     [
+      ">tpPrice",
+      "string",
+      "false",
+      "take profit trigger price"
+     ],
+     [
+      ">tpStopType",
+      "string",
+      "false",
+      "take profit trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      ">tpOrderType",
+      "string",
+      "false",
+      "take profit trigger place order type LIMIT MARKET"
+     ],
+     [
+      ">tpOrderPrice",
+      "string",
+      "false",
+      "take profit trigger place order price LIMIT MARKET required if tpOrderType is LIMIT"
+     ],
+     [
+      ">slPrice",
+      "string",
+      "false",
+      "stop loss trigger price"
+     ],
+     [
+      ">slStopType",
+      "string",
+      "false",
+      "stop loss trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      ">slOrderType",
+      "string",
+      "false",
+      "stop loss trigger place order type LIMIT MARKET"
+     ],
+     [
+      ">slOrderPrice",
+      "string",
+      "false",
+      "stop loss trigger place order price LIMIT MARKET required if slOrderType is LIMIT"
+     ]
+    ]
+   },
+   {
+    "before": ",\"reduceOnly\":false,\"effect\":\"IOC\",\"clientId\":\"c12346\"}]}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "successList",
+      "list",
+      "Successful order list"
+     ],
+     [
+      ">id",
+      "string",
+      "order id"
+     ],
+     [
+      ">clientId",
+      "string",
+      "client id"
+     ],
+     [
+      "failureList",
+      "list",
+      "Failed order list"
+     ],
+     [
+      ">clientId",
+      "string",
+      "client id"
+     ],
+     [
+      ">errorMsg",
+      "string",
+      "error msg"
+     ],
+     [
+      ">errorCode",
+      "string",
+      "error code"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__cancel_all_orders": {
+  "file": "trade__cancel_all_orders",
+  "rate": "20 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/trade/cancel_all_orders",
+  "tables": [
+   {
+    "before": ".HTTP Request \u200bPOST /api/v1/futures/trade/cancel_all_ordersRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ]
+    ]
+   },
+   {
+    "before": "t-Type: application/json\" \\  --data '{\"symbol\":\"BTCUSDT\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "successList",
+      "list",
+      "Successful order list"
+     ],
+     [
+      ">id",
+      "string",
+      "order id"
+     ],
+     [
+      ">clientId",
+      "string",
+      "client id"
+     ],
+     [
+      "failureList",
+      "list",
+      "Failed order list"
+     ],
+     [
+      ">id",
+      "string",
+      "order id"
+     ],
+     [
+      ">clientId",
+      "string",
+      "client id"
+     ],
+     [
+      ">errorMsg",
+      "string",
+      "error msg"
+     ],
+     [
+      ">errorCode",
+      "string",
+      "error code"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__cancel_orders": {
+  "file": "trade__cancel_orders",
+  "rate": "10 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/trade/cancel_orders",
+  "tables": [
+   {
+    "before": "tion.HTTP Request \u200bPOST /api/v1/futures/trade/cancel_ordersRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "orderList",
+      "list",
+      "true",
+      "order parameter list"
+     ],
+     [
+      "orderId",
+      "string",
+      "false",
+      "Order IDEither orderId or clientId is required. If both are entered, orderId prevails."
+     ],
+     [
+      "clientId",
+      "string",
+      "false",
+      "Customize order IDEither orderId or clientId is required. If both are entered, orderId prevails."
+     ]
+    ]
+   },
+   {
+    "before": "\",\"orderList\":[{\"orderId\":\"11111\"},{\"clientId\":\"22223\"}]}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "successList",
+      "list",
+      "Successful order list"
+     ],
+     [
+      ">id",
+      "string",
+      "order id"
+     ],
+     [
+      ">clientId",
+      "string",
+      "client id"
+     ],
+     [
+      "failureList",
+      "list",
+      "Failed order list"
+     ],
+     [
+      ">id",
+      "string",
+      "order id"
+     ],
+     [
+      ">clientId",
+      "string",
+      "client id"
+     ],
+     [
+      ">errorMsg",
+      "string",
+      "error msg"
+     ],
+     [
+      ">errorCode",
+      "string",
+      "error code"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__close_all_position": {
+  "file": "trade__close_all_position",
+  "rate": "1 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/trade/close_all_position",
+  "tables": [
+   {
+    "before": "HTTP Request \u200bPOST /api/v1/futures/trade/close_all_positionRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ]
+    ]
+   },
+   {
+    "before": "t-Type: application/json\" \\  --data '{\"symbol\":\"BTCUSDT\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": []
+   }
+  ]
+ },
+ "trade__flash_close_position": {
+  "file": "trade__flash_close_position",
+  "rate": "5 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/trade/flash_close_position",
+  "tables": [
+   {
+    "before": "TP Request \u200bPOST /api/v1/futures/trade/flash_close_positionRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "positionId",
+      "String",
+      "true",
+      "position id"
+     ]
+    ]
+   },
+   {
+    "before": "lication/json\" \\  --data '{\"positionId\":\"19848247723672\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "positionId",
+      "string",
+      "Position ID"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__get_history_orders": {
+  "file": "trade__get_history_orders",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/trade/get_history_orders",
+  "tables": [
+   {
+    "before": "cHTTP Request \u200bGET /api/v1/futures/trade/get_history_ordersRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ],
+     [
+      "orderId",
+      "string",
+      "false",
+      "order id"
+     ],
+     [
+      "clientId",
+      "string",
+      "false",
+      "client id"
+     ],
+     [
+      "status",
+      "string",
+      "false",
+      "Order statusFILLED CANCELEDPART_FILLED_CANCELEDEXPIRED"
+     ],
+     [
+      "type",
+      "string",
+      "false",
+      "Order typeLIMIT MARKET default all"
+     ],
+     [
+      "startTime",
+      "int64",
+      "false",
+      "Start timestampUnix timestamp in milliseconds format, e.g. 1597026383085"
+     ],
+     [
+      "endTime",
+      "int64",
+      "false",
+      "Start timestampUnix timestamp in milliseconds format, e.g. 1597026683085"
+     ],
+     [
+      "skip",
+      "int64",
+      "false",
+      "skip order count default: 0"
+     ],
+     [
+      "limit",
+      "int64",
+      "false",
+      "Number of queries: Maximum: 100, default: 10"
+     ],
+     [
+      "subAccountId",
+      "int64",
+      "false",
+      "With subAccountUid: returns historical orders for that sub-account only.Without subAccountUid: returns historical orders for the main account."
+     ],
+     [
+      "queryCanceled",
+      "boolean",
+      "false",
+      "Whether to query canceled orders only. default: falsetrue: return canceled orders only, query range limited to the last 3 daysfalse: exclude canceled orders, query range limited to the last 90 days"
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderList",
+      "list",
+      "order list"
+     ],
+     [
+      ">orderId",
+      "string",
+      "order id"
+     ],
+     [
+      ">symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      ">qty",
+      "string",
+      "Amount (base coin)"
+     ],
+     [
+      ">tradeQty",
+      "string",
+      "Fill amount (base coin)"
+     ],
+     [
+      ">positionMode",
+      "string",
+      "ONE_WAY or HEDGE"
+     ],
+     [
+      ">marginMode",
+      "string",
+      "ISOLATION or CROSS"
+     ],
+     [
+      ">leverage",
+      "int",
+      "leverage"
+     ],
+     [
+      ">price",
+      "string",
+      "Price of the order.Required if the order type is LIMIT"
+     ],
+     [
+      ">side",
+      "string",
+      "Order directionbuy: BUYsell: SELL"
+     ],
+     [
+      ">orderType",
+      "string",
+      "Order typeLIMIT: limit ordersMARKET: market orders"
+     ],
+     [
+      ">effect",
+      "string",
+      "Order expiration date.Required if the orderType is limitIOC: Immediate or cancelFOK: Fill or killGTC: Good till canceled(default value)POST_ONLY: POST only"
+     ],
+     [
+      ">clientId",
+      "string",
+      "Customize order ID"
+     ],
+     [
+      ">reduceOnly",
+      "boolean",
+      "Whether or not to just reduce the position"
+     ],
+     [
+      ">status",
+      "string",
+      "INIT:prepare statusNEW:pendingPART_FILLED:partially filledCANCELED:canceledFILLEDAll filled"
+     ],
+     [
+      ">fee",
+      "string",
+      "fee"
+     ],
+     [
+      ">realizedPNL",
+      "string",
+      "realized pnl"
+     ],
+     [
+      ">tpPrice",
+      "string",
+      "take profit trigger price"
+     ],
+     [
+      ">tpStopType",
+      "string",
+      "take profit trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      ">tpOrderType",
+      "string",
+      "take profit trigger place order type LIMIT MARKET"
+     ],
+     [
+      ">tpOrderPrice",
+      "string",
+      "take profit trigger place order price LIMIT MARKET required if tpOrderType is LIMIT"
+     ],
+     [
+      ">slPrice",
+      "string",
+      "stop loss trigger price"
+     ],
+     [
+      ">slStopType",
+      "string",
+      "stop loss trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      ">slOrderType",
+      "string",
+      "stop loss trigger place order type LIMIT MARKET"
+     ],
+     [
+      ">slOrderPrice",
+      "string",
+      "stop loss trigger place order price LIMIT MARKET required if slOrderType is LIMIT"
+     ],
+     [
+      ">ctime",
+      "int64",
+      "create timestamp"
+     ],
+     [
+      ">mtime",
+      "int64",
+      "latest modify timestamp"
+     ],
+     [
+      ">subAccountId",
+      "int64",
+      "order account id"
+     ],
+     [
+      "total",
+      "int64",
+      "total count"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__get_history_trades": {
+  "file": "trade__get_history_trades",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/trade/get_history_trades",
+  "tables": [
+   {
+    "before": "cHTTP Request \u200bGET /api/v1/futures/trade/get_history_tradesRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ],
+     [
+      "orderId",
+      "string",
+      "false",
+      "order id"
+     ],
+     [
+      "positionId",
+      "string",
+      "false",
+      "position id"
+     ],
+     [
+      "startTime",
+      "int64",
+      "false",
+      "Start timestampUnix timestamp in milliseconds format, e.g. 1597026383085"
+     ],
+     [
+      "endTime",
+      "int64",
+      "false",
+      "Start timestampUnix timestamp in milliseconds format, e.g. 1597026683085"
+     ],
+     [
+      "skip",
+      "int64",
+      "false",
+      "skip order count default: 0"
+     ],
+     [
+      "limit",
+      "int64",
+      "false",
+      "Number of queries: Maximum: 100, default: 10"
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "tradeList",
+      "list",
+      "trade list"
+     ],
+     [
+      ">tradeId",
+      "string",
+      "trade id"
+     ],
+     [
+      ">orderId",
+      "string",
+      "order id"
+     ],
+     [
+      ">symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      ">qty",
+      "string",
+      "Amount (base coin)"
+     ],
+     [
+      ">positionMode",
+      "string",
+      "ONE_WAY or HEDGE"
+     ],
+     [
+      ">marginMode",
+      "string",
+      "ISOLATION or CROSS"
+     ],
+     [
+      ">leverage",
+      "int",
+      "leverage"
+     ],
+     [
+      ">price",
+      "string",
+      "Price of the order.Required if the order type is LIMIT"
+     ],
+     [
+      ">side",
+      "string",
+      "Order directionbuy: BUYsell: SELL"
+     ],
+     [
+      ">orderType",
+      "string",
+      "Order typeLIMIT: limit ordersMARKET: market orders"
+     ],
+     [
+      ">effect",
+      "string",
+      "Order expiration date.Required if the orderType is limitIOC: Immediate or cancelFOK: Fill or killGTC: Good till canceled(default value)POST_ONLY: POST only"
+     ],
+     [
+      ">clientId",
+      "string",
+      "Customize order ID"
+     ],
+     [
+      ">reduceOnly",
+      "boolean",
+      "Whether or not to just reduce the position"
+     ],
+     [
+      ">fee",
+      "string",
+      "fee"
+     ],
+     [
+      ">realizedPNL",
+      "string",
+      "realized pnl"
+     ],
+     [
+      ">ctime",
+      "int64",
+      "create timestamp"
+     ],
+     [
+      ">roleType",
+      "string",
+      "Trader tag TAKER: makerMAKER: maker"
+     ],
+     [
+      "total",
+      "int64",
+      "total count"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__get_order_detail": {
+  "file": "trade__get_order_detail",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/trade/get_order_detail",
+  "tables": [
+   {
+    "before": "ailHTTP Request \u200bGET /api/v1/futures/trade/get_order_detailRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "false",
+      "order idAt least one of orderId or clientId is required."
+     ],
+     [
+      "clientId",
+      "string",
+      "false",
+      "client idAt least one of orderId or clientId is required."
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "order id"
+     ],
+     [
+      "symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      "qty",
+      "string",
+      "Amount (base coin)"
+     ],
+     [
+      "tradeQty",
+      "string",
+      "Fill amount (base coin)"
+     ],
+     [
+      "positionMode",
+      "string",
+      "ONE_WAY or HEDGE"
+     ],
+     [
+      "marginMode",
+      "string",
+      "ISOLATION or CROSS"
+     ],
+     [
+      "leverage",
+      "int",
+      "leverage"
+     ],
+     [
+      "price",
+      "string",
+      "Price of the order.Required if the order type is LIMIT"
+     ],
+     [
+      "side",
+      "string",
+      "Order directionbuy: BUYsell: SELL"
+     ],
+     [
+      "orderType",
+      "string",
+      "Order typeLIMIT: limit ordersMARKET: market orders"
+     ],
+     [
+      "effect",
+      "string",
+      "Order expiration date.Required if the orderType is limitIOC: Immediate or cancelFOK: Fill or killGTC: Good till canceled(default value)POST_ONLY: POST only"
+     ],
+     [
+      "clientId",
+      "string",
+      "Customize order ID"
+     ],
+     [
+      "reduceOnly",
+      "boolean",
+      "Whether or not to just reduce the position"
+     ],
+     [
+      "status",
+      "string",
+      "INIT:prepare statusNEW:pendingPART_FILLED:partially filledCANCELED:canceledFILLEDAll filled"
+     ],
+     [
+      "fee",
+      "string",
+      "fee"
+     ],
+     [
+      "realizedPNL",
+      "string",
+      "realized pnl"
+     ],
+     [
+      "tpPrice",
+      "string",
+      "take profit trigger price"
+     ],
+     [
+      "tpStopType",
+      "string",
+      "take profit trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      "tpOrderType",
+      "string",
+      "take profit trigger place order type LIMIT MARKET"
+     ],
+     [
+      "tpOrderPrice",
+      "string",
+      "take profit trigger place order price LIMIT MARKET required if tpOrderType is LIMIT"
+     ],
+     [
+      "slPrice",
+      "string",
+      "stop loss trigger price"
+     ],
+     [
+      "slStopType",
+      "string",
+      "stop loss trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      "slOrderType",
+      "string",
+      "stop loss trigger place order type LIMIT MARKET"
+     ],
+     [
+      "slOrderPrice",
+      "string",
+      "stop loss trigger place order price LIMIT MARKET required if slOrderType is LIMIT"
+     ],
+     [
+      "ctime",
+      "int64",
+      "create timestamp"
+     ],
+     [
+      "mtime",
+      "int64",
+      "latest modify timestamp"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__get_pending_orders": {
+  "file": "trade__get_pending_orders",
+  "rate": "10 req/sec/uid",
+  "method": "GET",
+  "path": "/api/v1/futures/trade/get_pending_orders",
+  "tables": [
+   {
+    "before": "cHTTP Request \u200bGET /api/v1/futures/trade/get_pending_ordersRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "false",
+      "Trading pair"
+     ],
+     [
+      "orderId",
+      "string",
+      "false",
+      "order id"
+     ],
+     [
+      "clientId",
+      "string",
+      "false",
+      "client id"
+     ],
+     [
+      "status",
+      "string",
+      "false",
+      "Order status NEW or PART_FILLED"
+     ],
+     [
+      "startTime",
+      "int64",
+      "false",
+      "Start timestampUnix timestamp in milliseconds format, e.g. 1597026383085"
+     ],
+     [
+      "endTime",
+      "int64",
+      "false",
+      "Start timestampUnix timestamp in milliseconds format, e.g. 1597026683085"
+     ],
+     [
+      "skip",
+      "int64",
+      "false",
+      "skip order count default: 0"
+     ],
+     [
+      "limit",
+      "int64",
+      "false",
+      "Number of queries: Maximum: 100, default: 10"
+     ]
+    ]
+   },
+   {
+    "before": " \"language:en-US\" \\    -H \"Content-Type: application/json\"Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderList",
+      "list",
+      "order list"
+     ],
+     [
+      ">orderId",
+      "string",
+      "order id"
+     ],
+     [
+      ">symbol",
+      "string",
+      "Trading pair"
+     ],
+     [
+      ">qty",
+      "string",
+      "Amount (base coin)"
+     ],
+     [
+      ">tradeQty",
+      "string",
+      "Fill amount (base coin)"
+     ],
+     [
+      ">positionMode",
+      "string",
+      "ONE_WAY or HEDGE"
+     ],
+     [
+      ">marginMode",
+      "string",
+      "ISOLATION or CROSS"
+     ],
+     [
+      ">leverage",
+      "int",
+      "leverage"
+     ],
+     [
+      ">price",
+      "string",
+      "Price of the order.Required if the order type is LIMIT"
+     ],
+     [
+      ">side",
+      "string",
+      "Order directionbuy: BUYsell: SELL"
+     ],
+     [
+      ">orderType",
+      "string",
+      "Order typeLIMIT: limit ordersMARKET: market orders"
+     ],
+     [
+      ">effect",
+      "string",
+      "Order expiration date.Required if the orderType is limitIOC: Immediate or cancelFOK: Fill or killGTC: Good till canceled(default value)POST_ONLY: POST only"
+     ],
+     [
+      ">clientId",
+      "string",
+      "Customize order ID"
+     ],
+     [
+      ">reduceOnly",
+      "boolean",
+      "Whether or not to just reduce the position"
+     ],
+     [
+      ">status",
+      "string",
+      "INIT:prepare statusNEW:pendingPART_FILLED:partially filledCANCELED:canceledFILLEDAll filled"
+     ],
+     [
+      ">fee",
+      "string",
+      "fee"
+     ],
+     [
+      ">realizedPNL",
+      "string",
+      "realized pnl"
+     ],
+     [
+      ">tpPrice",
+      "string",
+      "take profit trigger price"
+     ],
+     [
+      ">tpStopType",
+      "string",
+      "take profit trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      ">tpOrderType",
+      "string",
+      "take profit trigger place order type LIMIT MARKET"
+     ],
+     [
+      ">tpOrderPrice",
+      "string",
+      "take profit trigger place order price LIMIT MARKET required if tpOrderType is LIMIT"
+     ],
+     [
+      ">slPrice",
+      "string",
+      "stop loss trigger price"
+     ],
+     [
+      ">slStopType",
+      "string",
+      "stop loss trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      ">slOrderType",
+      "string",
+      "stop loss trigger place order type LIMIT MARKET"
+     ],
+     [
+      ">slOrderPrice",
+      "string",
+      "stop loss trigger place order price LIMIT MARKET required if slOrderType is LIMIT"
+     ],
+     [
+      ">ctime",
+      "int64",
+      "create timestamp"
+     ],
+     [
+      ">mtime",
+      "int64",
+      "latest modify timestamp"
+     ],
+     [
+      "total",
+      "int64",
+      "total count"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__modify_order": {
+  "file": "trade__modify_order",
+  "rate": "20 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/trade/modify_order",
+  "tables": [
+   {
+    "before": "ation.HTTP Request \u200bPOST /api/v1/futures/trade/modify_orderRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "false",
+      "Order IDEither orderId or clientId is required. If both are entered, orderId prevails."
+     ],
+     [
+      "clientId",
+      "string",
+      "false",
+      "Customize order IDEither orderId or clientId is required. If both are entered, orderId prevails."
+     ],
+     [
+      "qty",
+      "string",
+      "true",
+      "Amount (base coin)"
+     ],
+     [
+      "price",
+      "string",
+      "true",
+      "Price of the order.Required if the order type is LIMIT"
+     ],
+     [
+      "tpPrice",
+      "string",
+      "false",
+      "take profit trigger price"
+     ],
+     [
+      "tpStopType",
+      "string",
+      "false",
+      "take profit trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      "tpOrderType",
+      "string",
+      "false",
+      "take profit trigger place order type LIMIT MARKET"
+     ],
+     [
+      "tpOrderPrice",
+      "string",
+      "false",
+      "take profit trigger place order price LIMIT MARKET required if tpOrderType is LIMIT"
+     ],
+     [
+      "slPrice",
+      "string",
+      "false",
+      "stop loss trigger price"
+     ],
+     [
+      "slStopType",
+      "string",
+      "false",
+      "stop loss trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      "slOrderType",
+      "string",
+      "false",
+      "stop loss trigger place order type LIMIT MARKET"
+     ],
+     [
+      "slOrderPrice",
+      "string",
+      "false",
+      "stop loss trigger place order price LIMIT MARKET required if slOrderType is LIMIT"
+     ]
+    ]
+   },
+   {
+    "before": "e\":\"MARK\",\"tpOrderType\":\"LIMIT\",\"tpOrderPrice\":\"61000.1\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "order id"
+     ],
+     [
+      "clientId",
+      "string",
+      "client id"
+     ]
+    ]
+   }
+  ]
+ },
+ "trade__place_order": {
+  "file": "trade__place_order",
+  "rate": "20 req/sec/uid",
+  "method": "POST",
+  "path": "/api/v1/futures/trade/place_order",
+  "tables": [
+   {
+    "before": "e orderHTTP Request \u200bPOST /api/v1/futures/trade/place_orderRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "symbol",
+      "string",
+      "true",
+      "Trading pair"
+     ],
+     [
+      "qty",
+      "string",
+      "true",
+      "Amount (base coin)"
+     ],
+     [
+      "price",
+      "string",
+      "false",
+      "Price of the order.Required if the order type is LIMIT"
+     ],
+     [
+      "side",
+      "string",
+      "true",
+      "Order directionbuy: BUYsell: SELL"
+     ],
+     [
+      "tradeSide",
+      "string",
+      "true",
+      "DirectionOnly required in hedge-modeOpen and Close Notes:For open long, side fill in\"BUY\"; tradeSide should be \"OPEN\"For open short, side fill in \"SELL\"; tradeSide should be \"OPEN\"For close long, side fill in \"BUY\"; tradeSide should be \"CLOSE\"For close short, side fill in \"SELL\";tradeSide should be \"CLOSE\""
+     ],
+     [
+      "positionId",
+      "string",
+      "false",
+      "Position IDOnly required when \"tradeSide\" is \"CLOSE\""
+     ],
+     [
+      "orderType",
+      "string",
+      "true",
+      "Order typeLIMIT: limit ordersMARKET: market orders"
+     ],
+     [
+      "effect",
+      "string",
+      "false",
+      "Order expiration date.Required if the orderType is limitIOC: Immediate or cancelFOK: Fill or killGTC: Good till canceled(default value)POST_ONLY: POST only"
+     ],
+     [
+      "clientId",
+      "string",
+      "false",
+      "Customize order ID"
+     ],
+     [
+      "reduceOnly",
+      "boolean",
+      "false",
+      "Whether or not to just reduce the position"
+     ],
+     [
+      "tpPrice",
+      "string",
+      "false",
+      "take profit trigger price"
+     ],
+     [
+      "tpStopType",
+      "string",
+      "false",
+      "take profit trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      "tpOrderType",
+      "string",
+      "false",
+      "take profit trigger place order type LIMIT MARKET"
+     ],
+     [
+      "tpOrderPrice",
+      "string",
+      "false",
+      "take profit trigger place order price LIMIT MARKET required if tpOrderType is LIMIT"
+     ],
+     [
+      "slPrice",
+      "string",
+      "false",
+      "stop loss trigger price"
+     ],
+     [
+      "slStopType",
+      "string",
+      "false",
+      "stop loss trigger type MARK_PRICE LAST_PRICE"
+     ],
+     [
+      "slOrderType",
+      "string",
+      "false",
+      "stop loss trigger place order type LIMIT MARKET"
+     ],
+     [
+      "slOrderPrice",
+      "string",
+      "false",
+      "stop loss trigger place order price LIMIT MARKET required if slOrderType is LIMIT"
+     ]
+    ]
+   },
+   {
+    "before": "e\":\"MARK\",\"tpOrderType\":\"LIMIT\",\"tpOrderPrice\":\"61000.1\"}'Response Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "orderId",
+      "string",
+      "order id"
+     ],
+     [
+      "clientId",
+      "string",
+      "client id"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__prepare__WebSocket": {
+  "file": "websocket__prepare__WebSocket",
+  "rate": null,
+  "tables": [
+   {
+    "before": "evelopers use WebSocket API to obtain market information and transaction depth. ",
+    "header": [
+     "Domain",
+     "WebSocket API",
+     "Recommended to use"
+    ],
+    "rows": [
+     [
+      "Websocket Domain",
+      "wss://fapi.bitunix.com/public/",
+      "Main Domain, Public channel"
+     ],
+     [
+      "Websocket Domain",
+      "wss://fapi.bitunix.com/private/",
+      "Main Domain, Private channel"
+     ]
+    ]
+   },
+   {
+    "before": "com/private/ | Main Domain, Private channel [/TABLE] Ping \u200bRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation,ping"
+     ],
+     [
+      "ping",
+      "int64",
+      "Yes",
+      "Seconds format of Unix timestamp"
+     ]
+    ]
+   },
+   {
+    "before": "connect \u200bSubscription limit: Max 300 channel subscription/connectionsubscribe \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation,subscribe"
+     ],
+     [
+      "args",
+      "Array",
+      "Yes",
+      "List of subscribe channels"
+     ],
+     [
+      "> ch",
+      "String",
+      "Yes",
+      "Channel name"
+     ],
+     [
+      "> symbol",
+      "String",
+      "No",
+      "Instrument ID"
+     ]
+    ]
+   },
+   {
+    "before": "mbol\":\"BTCUSDT\",             \"ch\":\"depth_books\"          }     ] }unsubscribe \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation, unsubscribe"
+     ],
+     [
+      "args",
+      "Array",
+      "Yes",
+      "List of subscribe channels"
+     ],
+     [
+      "> ch",
+      "String",
+      "Yes",
+      "Channel name"
+     ],
+     [
+      "> symbol",
+      "String",
+      "No",
+      "Instrument ID"
+     ]
+    ]
+   },
+   {
+    "before": "  \"channel\":\"market_kline_1min\"            }     ] }Login \u200bRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation,login"
+     ],
+     [
+      "args",
+      "Array",
+      "Yes",
+      ""
+     ],
+     [
+      "> apiKey",
+      "String",
+      "Yes",
+      "API Key"
+     ],
+     [
+      "> timestamp",
+      "Int",
+      "Yes",
+      "Seconds format of Unix timestamp"
+     ],
+     [
+      "> nonce",
+      "String",
+      "Yes",
+      "Random string"
+     ],
+     [
+      "> sign",
+      "String",
+      "Yes",
+      "Signature string"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__private__Balance_Channel": {
+  "file": "websocket__private__Balance_Channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "Description \u200bBalancePush Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel name: balance"
+     ],
+     [
+      "ts",
+      "Int64",
+      "Time stamp"
+     ],
+     [
+      "data",
+      "<Object>",
+      ""
+     ],
+     [
+      "> coin",
+      "String",
+      "coin"
+     ],
+     [
+      "> available",
+      "String",
+      "available"
+     ],
+     [
+      "> frozen",
+      "String",
+      "frozen = isolationFrozen + crossFrozen"
+     ],
+     [
+      "> isolationFrozen",
+      "String",
+      "Freeze on a per warehouse basis"
+     ],
+     [
+      "> crossFrozen",
+      "String",
+      "Full warehouse entrusted freeze"
+     ],
+     [
+      "> margin",
+      "String",
+      "Margin"
+     ],
+     [
+      "> isolationMargin",
+      "String",
+      "Warehouse by warehouse margin."
+     ],
+     [
+      "> crossMargin",
+      "String",
+      "Full warehouse margin."
+     ],
+     [
+      "> expMoney",
+      "String",
+      "Experience Money."
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__private__Order_Channel": {
+  "file": "websocket__private__Order_Channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": " orders are createdOpen/Close orders are filledOrders canceledPush Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel name: order"
+     ],
+     [
+      "ts",
+      "Int64",
+      "Gateway send time in milliseconds. Not business event time; do not confuse with ctime / mtime."
+     ],
+     [
+      "data",
+      "<Object>",
+      "Subscription data"
+     ],
+     [
+      "> event",
+      "String",
+      "Event\uff0cCREATE/UPDATE/CLOSE"
+     ],
+     [
+      "> orderId",
+      "String",
+      "order Id"
+     ],
+     [
+      "> symbol",
+      "String",
+      "Symbol"
+     ],
+     [
+      "> positionType",
+      "String",
+      "Margin mode,ISOLATION/CROSS"
+     ],
+     [
+      "> positionMode",
+      "String",
+      "Position mode,ONE_WAY/HEDGE"
+     ],
+     [
+      "> side",
+      "String",
+      "Sell,BUY/SELL"
+     ],
+     [
+      "> effect",
+      "String",
+      "Order expiration date.Required if the orderType is limit.IOC: Immediate or cancel;FOK: Fill or kill;GTC: Good till canceled(default value);POST_ONLY: POST only;"
+     ],
+     [
+      "> type",
+      "String",
+      "LIMIT/MARKET"
+     ],
+     [
+      "> qty",
+      "String",
+      "Amount (base coin)"
+     ],
+     [
+      "> price",
+      "String",
+      "Price of the order. Required if the order type is LIMIT"
+     ],
+     [
+      "> ctime",
+      "String",
+      "Create time, ISO-8601 nanosecond string, e.g. 2024-05-16T08:13:09.123456789Z"
+     ],
+     [
+      "> mtime",
+      "String",
+      "Last modify time, ISO-8601 nanosecond string. Same format as ctime. REST order APIs use millisecond integers."
+     ],
+     [
+      "> leverage",
+      "String",
+      "Leverage"
+     ],
+     [
+      "> orderStatus",
+      "String",
+      "INIT:prepare status;NEW:pending;PART_FILLED:partially filled;CANCELED:canceled;FILLEDAll filled;PART_FILLED_CANCELED:part filled canceled;"
+     ],
+     [
+      "> fee",
+      "String",
+      "Deducted transaction fees: transaction fees deducted during the position"
+     ],
+     [
+      "> averagePrice",
+      "String",
+      "Average price"
+     ],
+     [
+      "> dealAmount",
+      "String",
+      "Deal amount"
+     ],
+     [
+      "> clientId",
+      "String",
+      "Client ID"
+     ],
+     [
+      "> tpStopType",
+      "String",
+      "Take profit trigger type.MARK_PRICE/LAST_PRICE"
+     ],
+     [
+      "> tpPrice",
+      "String",
+      "Take profit trigger price"
+     ],
+     [
+      "> tpOrderType",
+      "String",
+      "Take profit trigger place order type.LIMIT/MARKET"
+     ],
+     [
+      "> tpOrderPrice",
+      "String",
+      "Take profit trigger place order price.LIMIT/MARKET"
+     ],
+     [
+      "> slStopType",
+      "String",
+      "Stop loss trigger type.MARK_PRICE/LAST_PRICE"
+     ],
+     [
+      "> slPrice",
+      "String",
+      "Stop loss trigger price"
+     ],
+     [
+      "> slOrderType",
+      "String",
+      "Stop loss trigger place order type.LIMIT/MARKET"
+     ],
+     [
+      "> slOrderPrice",
+      "String",
+      "Stop loss trigger place order price.LIMIT/MARKET"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__private__Position_Channel": {
+  "file": "websocket__private__Position_Channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "ers are createdOpen/Close orders are filledOrders are canceledPush Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel name: position"
+     ],
+     [
+      "ts",
+      "Int64",
+      "Time stamp"
+     ],
+     [
+      "data",
+      "<Object>",
+      "Subscription data"
+     ],
+     [
+      "> event",
+      "String",
+      "Event\uff0cOPEN/UPDATE/CLOSE"
+     ],
+     [
+      "> positionId",
+      "String",
+      "position Id"
+     ],
+     [
+      "> marginMode",
+      "String",
+      "Margin mode,ISOLATION/CROSS"
+     ],
+     [
+      "> positionMode",
+      "String",
+      "Position mode,ONE_WAY/HEDGE"
+     ],
+     [
+      "> side",
+      "String",
+      "Position direction,SHORT/LONG"
+     ],
+     [
+      "> leverage",
+      "String",
+      "Leverage"
+     ],
+     [
+      "> margin",
+      "String",
+      "margin"
+     ],
+     [
+      "> ctime",
+      "String",
+      "Create time"
+     ],
+     [
+      "> qty",
+      "String",
+      "Open position size"
+     ],
+     [
+      "> symbol",
+      "String",
+      "Symbol"
+     ],
+     [
+      "> realizedPNL",
+      "String",
+      "Realized PnL(exclude funding fee and transaction fee)"
+     ],
+     [
+      "> unrealizedPNL",
+      "String",
+      "Unrealized PnL"
+     ],
+     [
+      "> funding",
+      "String",
+      "total funding fee during the position"
+     ],
+     [
+      "> fee",
+      "String",
+      "Deducted transaction fees: transaction fees deducted during the position"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__private__Tp_Sl_Channel": {
+  "file": "websocket__private__Tp_Sl_Channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "IGGER_WAIT_PLACE. Do not document PART_FILLED on this channel.Push Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel name: tpsl"
+     ],
+     [
+      "ts",
+      "Int64",
+      "Gateway send time, Unix milliseconds. Do not use this field to order business events."
+     ],
+     [
+      "data",
+      "<Object>",
+      "Always an object (not an array)"
+     ],
+     [
+      "> event",
+      "String",
+      "CREATE / UPDATE / CLOSE"
+     ],
+     [
+      "> positionId",
+      "String",
+      "position Id"
+     ],
+     [
+      "> orderId",
+      "String",
+      "order Id"
+     ],
+     [
+      "> symbol",
+      "String",
+      "Symbol"
+     ],
+     [
+      "> leverage",
+      "String",
+      "Leverage"
+     ],
+     [
+      "> side",
+      "String",
+      "BUY/SELL"
+     ],
+     [
+      "> positionMode",
+      "String",
+      "Position mode, ONE_WAY/HEDGE"
+     ],
+     [
+      "> status",
+      "String",
+      "NEW / CANCELED / SYSTEM_CANCELED / FILLED / FAILED. See event-status table below."
+     ],
+     [
+      "> ctime",
+      "String",
+      "Create time, ISO-8601 nanosecond string, e.g. 2024-05-16T08:13:09.123456789Z. REST history APIs use millisecond integers instead."
+     ],
+     [
+      "> type",
+      "String",
+      "LIMIT/MARKET"
+     ],
+     [
+      "> tpQty",
+      "String",
+      "Take-profit order quantity (base coin). Omitted if unused."
+     ],
+     [
+      "> slQty",
+      "String",
+      "Stop-loss order quantity (base coin). Omitted if unused. Never Boolean. Never JSON null. \"0\" is sent as \"0\"."
+     ],
+     [
+      "> tpStopType",
+      "String",
+      "take profit trigger type. MARK_PRICE/LAST_PRICE"
+     ],
+     [
+      "> tpPrice",
+      "String",
+      "take profit trigger price"
+     ],
+     [
+      "> tpOrderType",
+      "String",
+      "take profit trigger place order type. LIMIT/MARKET"
+     ],
+     [
+      "> tpOrderPrice",
+      "String",
+      "take profit trigger place order price"
+     ],
+     [
+      "> slStopType",
+      "String",
+      "stop loss trigger type. MARK_PRICE/LAST_PRICE"
+     ],
+     [
+      "> slPrice",
+      "String",
+      "stop loss trigger price"
+     ],
+     [
+      "> slOrderType",
+      "String",
+      "stop loss trigger place order type. LIMIT/MARKET"
+     ],
+     [
+      "> slOrderPrice",
+      "String",
+      "stop loss trigger place order price"
+     ]
+    ]
+   },
+   {
+    "before": "rice | String | stop loss trigger place order price [/TABLE] Event and status \u200b ",
+    "header": [
+     "event",
+     "status",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "CREATE",
+      "NEW",
+      "TP/SL order became effective"
+     ],
+     [
+      "UPDATE",
+      "NEW",
+      "TP/SL order was modified"
+     ],
+     [
+      "CLOSE",
+      "CANCELED",
+      "Canceled by the user"
+     ],
+     [
+      "CLOSE",
+      "SYSTEM_CANCELED",
+      "Canceled by the system"
+     ],
+     [
+      "CLOSE",
+      "FILLED",
+      "Trigger succeeded and the child order was placed (not child-order full fill)"
+     ],
+     [
+      "CLOSE",
+      "FAILED",
+      "Trigger failed"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__public__MarketPrice_Channel": {
+  "file": "websocket__public__MarketPrice_Channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "Description \u200bRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation, subscribe unsubscribe"
+     ],
+     [
+      "args",
+      "List<Object>",
+      "Yes",
+      "op list"
+     ],
+     [
+      "> symbol",
+      "String",
+      "Yes",
+      "Product ID e.g: ETHUSDT"
+     ],
+     [
+      "> ch",
+      "String",
+      "Yes",
+      "Channel, price"
+     ]
+    ]
+   },
+   {
+    "before": "ymbol\":\"BTCUSDT\",             \"ch\":\"price\"           }     ] }Push Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel name"
+     ],
+     [
+      "symbol",
+      "String",
+      "Product ID E.g. ETHUSDT"
+     ],
+     [
+      "ts",
+      "int64",
+      "Time stamp"
+     ],
+     [
+      "data",
+      "List<String>",
+      "Subscription data"
+     ],
+     [
+      "> mp",
+      "String",
+      "Market price"
+     ],
+     [
+      "> ip",
+      "String",
+      "Index price"
+     ],
+     [
+      "> fr",
+      "String",
+      "Funding rate"
+     ],
+     [
+      "> ft",
+      "String",
+      "Funding rate settlement time"
+     ],
+     [
+      "> nft",
+      "String",
+      "Next funding rate settlement time"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__public__Ticker_Channel": {
+  "file": "websocket__public__Ticker_Channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "but a 24hr rolling window from requestTime to 24hrs before.Request Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation, subscribe unsubscribe"
+     ],
+     [
+      "args",
+      "List<Object>",
+      "Yes",
+      ""
+     ],
+     [
+      "> symbol",
+      "String",
+      "Yes",
+      "Product ID e.g: ETHUSDT"
+     ],
+     [
+      "> ch",
+      "String",
+      "Yes",
+      "Channel, ticker"
+     ]
+    ]
+   },
+   {
+    "before": "ymbol\":\"BTCUSDT\",             \"ch\":\"ticker\"          }     ] }Push Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel name"
+     ],
+     [
+      "symbol",
+      "String",
+      "Product ID E.g. ETHUSDT"
+     ],
+     [
+      "ts",
+      "int64",
+      "Time stamp"
+     ],
+     [
+      "data",
+      "List<String>",
+      "Subscription data"
+     ],
+     [
+      "> s",
+      "String",
+      "Symbol, Product ID E.g. ETHUSDT"
+     ],
+     [
+      "> o",
+      "String",
+      "Opening price"
+     ],
+     [
+      "> h",
+      "String",
+      "Highest price"
+     ],
+     [
+      "> l",
+      "String",
+      "Lowest price"
+     ],
+     [
+      "> la",
+      "String",
+      "Last price"
+     ],
+     [
+      "> b",
+      "String",
+      "Trading volume of the coin"
+     ],
+     [
+      "> q",
+      "String",
+      "Trading volume of quote currency"
+     ],
+     [
+      "> r",
+      "String",
+      "24-hour fluctuations"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__public__Tickers_Channel": {
+  "file": "websocket__public__Tickers_Channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "er a 24-hour rolling window from the request time backward.Request Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation, subscribe unsubscribe"
+     ],
+     [
+      "args",
+      "List<Object>",
+      "Yes",
+      ""
+     ],
+     [
+      "> symbol",
+      "String",
+      "Yes",
+      "Product ID e.g: ETHUSDT"
+     ],
+     [
+      "> ch",
+      "String",
+      "Yes",
+      "Channel, tickers"
+     ]
+    ]
+   },
+   {
+    "before": "\" \t\t}, \t\t{ \t\t\t\"symbol\": \"ETHUSDT\", \t\t\t\"ch\": \"tickers\" \t\t} \t] }Push Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel name"
+     ],
+     [
+      "ts",
+      "int64",
+      "Time stamp"
+     ],
+     [
+      "data",
+      "List<String>",
+      "Subscription data"
+     ],
+     [
+      "> s",
+      "String",
+      "symbol, Product ID E.g. ETHUSDT"
+     ],
+     [
+      "> o",
+      "String",
+      "Opening price"
+     ],
+     [
+      "> h",
+      "String",
+      "Highest price"
+     ],
+     [
+      "> l",
+      "String",
+      "Lowest price"
+     ],
+     [
+      "> la",
+      "String",
+      "Last price"
+     ],
+     [
+      "> b",
+      "String",
+      "Trading volume of the coin"
+     ],
+     [
+      "> q",
+      "String",
+      "Trading volume of quote currency"
+     ],
+     [
+      "> r",
+      "String",
+      "24-hour fluctuations"
+     ],
+     [
+      "> bd",
+      "String",
+      "Best Bid Price"
+     ],
+     [
+      "> ak",
+      "String",
+      "Best Ask Price"
+     ],
+     [
+      "> bv",
+      "String",
+      "Best Bid Volume"
+     ],
+     [
+      "> av",
+      "String",
+      "Best Ask Volume"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__public__Trade_Channel": {
+  "file": "websocket__public__Trade_Channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "Description \u200bGet the public trade dataRequest Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation, subscribe unsubscribe"
+     ],
+     [
+      "args",
+      "List<Object>",
+      "Yes",
+      "op list"
+     ],
+     [
+      "> symbol",
+      "String",
+      "Yes",
+      "Product ID e.g: ETHUSDT"
+     ],
+     [
+      "> ch",
+      "String",
+      "Yes",
+      "Channel, trade"
+     ]
+    ]
+   },
+   {
+    "before": "ymbol\":\"BTCUSDT\",             \"ch\":\"trade\"           }     ] }Push Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel, trade"
+     ],
+     [
+      "symbol",
+      "String",
+      "Symbol: ETHUSDT"
+     ],
+     [
+      "ts",
+      "String",
+      "Time stamp"
+     ],
+     [
+      "data",
+      "List<Object>",
+      "Data"
+     ],
+     [
+      "> p",
+      "String",
+      "Filled price"
+     ],
+     [
+      "> v",
+      "String",
+      "Filled amount"
+     ],
+     [
+      "> s",
+      "String",
+      "Filled side, sell/buy"
+     ],
+     [
+      "> t",
+      "String",
+      "Time stamp"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__public__depth_channel": {
+  "file": "websocket__public__depth_channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "ery time.book15: 15 depth levels will be pushed every time.Request Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation, subscribe unsubscribe"
+     ],
+     [
+      "args",
+      "List<Object>",
+      "Yes",
+      "List of channels to request subscription"
+     ],
+     [
+      "> ch",
+      "String",
+      "Yes",
+      "Channel name: depth_books,depth_book1,depth_book5,depth_book15"
+     ],
+     [
+      "> symbol",
+      "String",
+      "Yes",
+      "Product ID"
+     ]
+    ]
+   },
+   {
+    "before": ":\"BTCUSDT\",             \"ch\":\"depth_book1\"           }     ] }Push Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "Object",
+      "Channel name"
+     ],
+     [
+      "symbol",
+      "String",
+      "Product ID"
+     ],
+     [
+      "ts",
+      "Int64",
+      "Time stamp"
+     ],
+     [
+      "data",
+      "String",
+      "Subscription data"
+     ],
+     [
+      "> a",
+      "List<String>",
+      "Seller depth"
+     ],
+     [
+      "> b",
+      "List<String>",
+      "Buyer depth"
+     ]
+    ]
+   }
+  ]
+ },
+ "websocket__public__kline_channel": {
+  "file": "websocket__public__kline_channel",
+  "rate": null,
+  "tables": [
+   {
+    "before": "rom mark_kline_1min and then subscribe to mark_kline_15min.Request Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Required",
+     "Description"
+    ],
+    "rows": [
+     [
+      "op",
+      "String",
+      "Yes",
+      "Operation, subscribe unsubscribe"
+     ],
+     [
+      "args",
+      "List<Object>",
+      "Yes",
+      "List of channels to request subscription"
+     ],
+     [
+      "> ch",
+      "String",
+      "Yes",
+      "Channel name, The subscription channel is: Price TypeklineTime Interval\uff1bThe price types include market price and marked price\uff1bmarket_kline_1min,mark_kline_1min,market_kline_3min,mark_kline_3min,market_kline_5min,mark_kline_5min,market_kline_15min,mark_kline_15min,market_kline_30min,mark_kline_30min,market_kline_60min,mark_kline_60min,market_kline_2h,mark_kline_2h,market_kline_4h,mark_kline_4h,market_kline_6h,mark_kline_6h,market_kline_8h,mark_kline_8h,market_kline_12h,mark_kline_12h,market_kline_1day,mark_kline_1day,market_kline_3day,mark_kline_3day,market_kline_1week,mark_kline_1week,market_kline_1month,mark_kline_1month"
+     ],
+     [
+      "> symbol",
+      "String",
+      "Yes",
+      "Product ID E.g. ETHUSDT"
+     ]
+    ]
+   },
+   {
+    "before": "USDT\",             \"ch\":\"market_kline_1min\"          }     ] }Push Parameters \u200b ",
+    "header": [
+     "Parameter",
+     "Type",
+     "Description"
+    ],
+    "rows": [
+     [
+      "ch",
+      "String",
+      "Channel name"
+     ],
+     [
+      "symbol",
+      "String",
+      "Product ID E.g. ETHUSDT"
+     ],
+     [
+      "ts",
+      "int64",
+      "Time stamp"
+     ],
+     [
+      "data",
+      "List<String>",
+      "Subscription data"
+     ],
+     [
+      "> o",
+      "String",
+      "Opening price"
+     ],
+     [
+      "> h",
+      "String",
+      "Highest price"
+     ],
+     [
+      "> l",
+      "String",
+      "Lowest price"
+     ],
+     [
+      "> c",
+      "String",
+      "Closing price"
+     ],
+     [
+      "> b",
+      "String",
+      "Trading volume of the coin"
+     ],
+     [
+      "> q",
+      "String",
+      "Trading volume of quote currency"
+     ]
+    ]
+   }
+  ]
+ }
+}
