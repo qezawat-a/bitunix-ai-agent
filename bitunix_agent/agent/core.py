@@ -315,16 +315,6 @@ class Agent:
         if low in ("/settings", "settings", "show settings"):
             from ..extensions.store import KNOWN, mask
             return "\n".join(f"{k} = {mask(k, os.getenv(k))}" for k in KNOWN if os.getenv(k))  or "No settings yet."
-        if low in ("/scan", "scan", "scan settings", "/scan_settings", "scan status"):
-            from ..engine.autoscan import describe_settings
-            try:
-                await self.monitor.scan_once(trade=False)
-                status = await self.monitor.status_text()
-            except Exception as e:
-                status = f"(live check failed: {type(e).__name__}: {e})"
-            return describe_settings() + "\n\n" + status
-        if low in ("/status", "status", "report"):
-            return await self.monitor.status_text()
         if low in ("/restart", "restart", "restart agent"):
             await self.tools["restart_agent"].fn(None)
             return "Restarting in 3 seconds."
