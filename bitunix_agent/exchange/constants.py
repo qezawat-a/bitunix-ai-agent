@@ -48,7 +48,7 @@ ORDER_WS_EVENTS = ("CREATE", "UPDATE", "CLOSE")
 POSITION_WS_EVENTS = ("OPEN", "UPDATE", "CLOSE")
 
 # ---------------------------------------------------------------- market enums
-KLINE_INTERVALS = ("1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M")
+KLINE_INTERVALS = ("1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M")
 KLINE_TYPES = ("LAST_PRICE", "MARK_PRICE")
 KLINE_MAX_LIMIT = 200
 DEPTH_LIMITS = ("1", "5", "15", "50", "max")
@@ -73,11 +73,10 @@ WS_KLINE_PRICE_TYPES = ("market", "mark")
 WS_KLINE_INTERVALS = ("1min", "3min", "5min", "15min", "30min", "60min", "2h", "4h", "6h", "8h", "12h", "1day", "3day", "1week", "1month")
 WS_KLINE_CHANNELS = tuple(f"{pt}_kline_{iv}" for iv in WS_KLINE_INTERVALS for pt in WS_KLINE_PRICE_TYPES)
 REST_TO_WS_INTERVAL = {
-    "1m": "1min", "5m": "5min", "15m": "15min", "30m": "30min", "1h": "60min", "2h": "2h", "4h": "4h",
+    "1m": "1min", "3m": "3min", "5m": "5min", "15m": "15min", "30m": "30min", "1h": "60min", "2h": "2h", "4h": "4h",
     "6h": "6h", "8h": "8h", "12h": "12h", "1d": "1day", "3d": "3day", "1w": "1week", "1M": "1month",
 }
 WS_TO_REST_INTERVAL = {v: k for k, v in REST_TO_WS_INTERVAL.items()}
-WS_TO_REST_INTERVAL["3min"] = "3m"  # WS-only interval
 
 
 def ws_kline_channel(interval: str, price_type: str = "market") -> str:

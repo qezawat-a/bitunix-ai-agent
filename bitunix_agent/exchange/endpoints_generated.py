@@ -220,12 +220,13 @@ class GeneratedEndpoints:
         Parameters:
             symbol (string, required): Trading pair, based on the symbolName, i.e. BTCUSDT
             endTime (int, optional): Exclusive end bound. Query limit klines before this time. Unix timestamp in milliseconds, e.g. 1672410000000. Best practice: align to the interval open time. If omitted, the current forming candle open time is used
-            interval (string, required) one of ['1m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '8h', '12h', '1d', '3d', '1w', '1M']: kline interval such as 1m 5m 15m 30m 1h 2h 4h 6h 8h 12h 1d 3d 1w 1M
+            interval (string, required) one of ['1m', '3m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '8h', '12h', '1d', '3d', '1w', '1M']: kline interval such as 1m 5m 15m 30m 1h 2h 4h 6h 8h 12h 1d 3d 1w 1M
             limit (int, optional): Number of klines to return, counting backward from endTime. Default: 100, maximum: 200
             type (string, optional) one of ['LAST_PRICE', 'MARK_PRICE']: Kline type, values: LAST_PRICE, MARK_PRICE; default: LAST_PRICE
         Note: startTime was removed (changelog 2026-10-27). Query = endTime + limit counting backward; endTime candle excluded.
         Note: time is the candle OPEN time; only closed candles are returned (changelog 2026-10-08).
         Note: Live API returns newest first and time as a string; the client normalizes to oldest-first ints.
+        Note: 3m is not in the REST interval list but the live API serves it (verified 2026-11-28) and the WS kline docs list 3min; added at the user's request.
         """
         params = {'symbol': symbol, 'endTime': endTime, 'interval': interval, 'limit': limit, 'type': type}
         return await self.call('get_kline', {k: v for k, v in params.items() if v is not None})

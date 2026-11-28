@@ -164,7 +164,7 @@ def test_validation_rules():
     with pytest.raises(ValidationError, match="at least one of"):
         validate("place_position_tpsl_order", {"symbol": "BTCUSDT", "positionId": "1"})
     with pytest.raises(ValidationError, match="not allowed"):
-        validate("get_kline", {"symbol": "BTCUSDT", "interval": "3m"})
+        validate("get_kline", {"symbol": "BTCUSDT", "interval": "2m"})
     with pytest.raises(ValidationError, match="unknown parameter"):
         validate("get_kline", {"symbol": "BTCUSDT", "interval": "1m", "startTime": 1})
     with pytest.raises(ValidationError, match="exceeds maximum 200"):
@@ -190,3 +190,10 @@ async def test_kline_normalized_oldest_first():
     k = await c.get_kline(symbol="BTCUSDT", interval="1m")
     assert [x["time"] for x in k] == [100, 200]
     await c.close()
+
+
+def test_kline_3m_allowed():
+    # 3m is served live (2026-11-28) and listed in the WS kline docs as 3min; added at the user's request.
+    validate("get_kline", {"symbol": "BTCUSDT", "interval": "3m"})
+    from bitunix_agent.exchange.constants import ws_kline_channel
+    assert ws_kline_channel("3m") == "market_kline_3min"

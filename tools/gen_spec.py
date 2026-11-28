@@ -75,7 +75,7 @@ STOP_TYPE = ["MARK_PRICE", "LAST_PRICE"]
 MARGIN_MODE = ["ISOLATION", "CROSS"]
 POSITION_MODE = ["ONE_WAY", "HEDGE"]
 POSITION_SIDE = ["LONG", "SHORT"]
-KLINE_INTERVAL = ["1m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M"]
+KLINE_INTERVAL = ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M"]
 KLINE_TYPE = ["LAST_PRICE", "MARK_PRICE"]
 DEPTH_LIMIT = ["1", "5", "15", "50", "max"]
 
@@ -186,6 +186,7 @@ OVERRIDES: dict[str, dict] = {
             "startTime was removed (changelog 2026-10-27). Query = endTime + limit counting backward; endTime candle excluded.",
             "time is the candle OPEN time; only closed candles are returned (changelog 2026-10-08).",
             "Live API returns newest first and time as a string; the client normalizes to oldest-first ints.",
+            "3m is not in the REST interval list but the live API serves it (verified 2026-11-28) and the WS kline docs list 3min; added at the user's request.",
         ],
     },
     "get_depth": {"enums": {"limit": DEPTH_LIMIT}},
