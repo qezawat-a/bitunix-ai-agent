@@ -395,22 +395,13 @@ class TradingEngine:
         stops = [D(o["slPrice"]) for o in orders if o.get("slPrice") not in (None, "", "0") and not o.get("slQty")]
         return stops[0] if stops else None
 
-    async def move_stop_to_breakeven(self, symbol: str, side: str | None = None, offset_pct: float = 0.05,
-                                     position_id: str | None = None) -> dict:
-        pos = await self.find_position(symbol, side, position_id)
+    async def move_stop_to_breakeven(self, symbol: str, side: str | None = None, offset_pct: float = 0.05) -> dict:
+        pos = await self.find_position(symbol, side)
         if not pos:
             return {"ok": False, "problems": ["no position"]}
         entry = D(pos.get("avgOpenPrice") or D(pos["entryValue"]) / D(pos["qty"]))
         off = entry * D(offset_pct) / 100
-        long = pos_is_long(pos)
-        sl = entry + off if long else entry - off
-        # Never loosen: if the current stop is already at/above breakeven (long) or at/below it (short), keep it.
-        try:
-            cur = await self.current_stop(symbol, pos["positionId"])
-        except Exception:
-            cur = None
-        if cur is not None and ((long and cur >= sl) or (not long and cur <= sl)):
-            return {"ok": True, "unchanged": True, "reason": f"current stop {cur} is already tighter than breakeven {sl}"}
+        sl = entry + off if pos_is_long(pos) else entry - off
         return await self.set_tpsl(symbol=symbol, position_id=pos["positionId"], stop_loss=sl)
 
     # ------------------------------------------------------------------ ladders
