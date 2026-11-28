@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 from decimal import Decimal
 from typing import Awaitable, Callable
 
@@ -23,10 +24,11 @@ class Monitor:
         self._last_task_reply: dict[str, str] = {}
         self.margin_rate_alert = Decimal("0.8")  # notify when marginRate crosses this (closer to 1 = closer to liquidation)
         self._warned: set[str] = set()
+        self._guard_done: dict[str, set[str]] = {}   # positionId -> {"be", "trail"}
 
     def start(self):
         self._tasks = [asyncio.create_task(self._alerts_loop()), asyncio.create_task(self._trailing_loop()),
-                       asyncio.create_task(self._tasks_loop())]
+                       asyncio.create_task(self._tasks_loop()), asyncio.create_task(self._guard_loop())]
         if self.engine.ws and self.engine.ws._private:
             self._tasks.append(asyncio.create_task(self._events_loop()))
 
@@ -105,6 +107,50 @@ class Monitor:
                 log.exception("trailing loop")
             await asyncio.sleep(max(self.poll, 3))
 
+    # ---------------------------------------------------------------- auto guard (no LLM)
+    async def _guard_loop(self):
+        """Code-side GUARD for every open position, without the LLM (so it keeps working when the LLM is rate-limited):
+        ROI >= AUTO_GUARD_BE_ROI -> stop to breakeven (never loosens an existing stop);
+        ROI >= AUTO_GUARD_TRAIL_ROI -> trailing stop with AUTO_GUARD_TRAIL_CALLBACK %.
+        ROI = unrealizedPNL / margin x 100 (what the Bitunix app shows). Settings are read live, so `set AUTO_GUARD=false` turns it off."""
+        while True:
+            try:
+                if _env_bool("AUTO_GUARD", True):
+                    await self._guard_tick()
+            except Exception:
+                log.exception("guard loop")
+            await asyncio.sleep(max(3.0, _env_float("AUTO_GUARD_POLL_SEC", 5.0)))
+
+    async def _guard_tick(self):
+        be_roi = _env_float("AUTO_GUARD_BE_ROI", 15.0)
+        trail_roi = _env_float("AUTO_GUARD_TRAIL_ROI", 20.0)
+        cb = _env_float("AUTO_GUARD_TRAIL_CALLBACK", 1.0)
+        positions = await self.engine.positions()
+        open_ids = {str(p.get("positionId")) for p in positions}
+        for pid in list(self._guard_done):
+            if pid not in open_ids:
+                self._guard_done.pop(pid, None)
+        trailing_ids = {str(t["position_id"]) for t in self.db.trailing()}
+        for p in positions:
+            pid, sym = str(p.get("positionId")), p.get("symbol")
+            roi = position_roi(p)
+            if roi is None or not sym:
+                continue
+            done = self._guard_done.setdefault(pid, set())
+            if roi >= be_roi and "be" not in done:
+                res = await self.engine.move_stop_to_breakeven(sym, position_id=pid)
+                if res.get("ok"):
+                    done.add("be")
+                    if not res.get("unchanged"):
+                        await self._broadcast(f"🛡 {sym}: ROI {roi:.1f}% → stop moved to breakeven.")
+            if roi >= trail_roi and "trail" not in done:
+                if pid not in trailing_ids:
+                    from .trading import pos_direction
+                    chat = next((c["chat_id"] for c in self.db.chats()), "")
+                    self.db.set_trailing(pid, chat, sym, pos_direction(p), cb, None)
+                    await self._broadcast(f"📈 {sym}: ROI {roi:.1f}% → trailing stop on ({cb}% callback).")
+                done.add("trail")
+
     # ---------------------------------------------------------------- scheduled agent prompts
     async def _tasks_loop(self):
         while True:
@@ -168,3 +214,26 @@ def _is_quiet(reply: str | None, last: str | None) -> bool:
         norm = lambda x: re.sub(r"[\d.,:%+\-~]+", "#", x)
         return norm(r) == norm(last)
     return False
+
+
+def _env_float(name: str, default: float) -> float:
+    try:
+        return float(str(os.getenv(name, default)).replace("%", "").strip())
+    except ValueError:
+        return default
+
+
+def _env_bool(name: str, default: bool) -> bool:
+    v = os.getenv(name)
+    return default if v is None or v.strip() == "" else v.strip().lower() in ("1", "true", "yes", "on")
+
+
+def position_roi(p: dict) -> float | None:
+    """ROI % as the Bitunix app shows it: unrealizedPNL / margin x 100."""
+    try:
+        m = float(p.get("margin") or 0)
+        if m > 0:
+            return float(p.get("unrealizedPNL") or 0) / m * 100
+    except (TypeError, ValueError):
+        pass
+    return None

@@ -268,7 +268,7 @@ class Agent:
                                 "'show my balance' or 'analyze BTCUSDT'. If it keeps happening, switch LLM_PROVIDER/LLM_MODEL in .env.")
                 else:
                     log.exception("llm error")
-                    return f"The language model returned an error ({type(e).__name__}: {e}). Check LLM_PROVIDER / LLM_MODEL / LLM_API_KEY."
+                    return _llm_error_text(e)
             if not out["tool_calls"]:
                 textual = _textual_tool_calls(out["content"])
                 if textual:  # some models print tool calls as text instead of calling them: run them anyway
@@ -319,6 +319,19 @@ class Agent:
             await self.tools["restart_agent"].fn(None)
             return "Restarting in 3 seconds."
         return None
+
+
+def _llm_error_text(e: Exception) -> str:
+    msg = str(e)
+    if "insufficient_quota" in msg or "quota" in msg.lower() and "429" in msg:
+        return ("The language model's credit/quota is used up (HTTP 429). Your settings are fine. "
+                "Top it up, or switch with: set LLM_API_KEY=... (and LLM_BASE_URL / LLM_MODEL if the provider changes).")
+    if "LLM HTTP 429" in msg:
+        return ("The language model provider is rate-limiting (HTTP 429: too many requests per minute). Your key and settings are fine. "
+                "I waited and retried, but it was still busy. Fewer/slower scheduled tasks or a paid plan fixes it.")
+    if "LLM HTTP 401" in msg or "LLM HTTP 403" in msg:
+        return f"The language model rejected the key ({msg[:200]}). Check LLM_API_KEY."
+    return f"The language model returned an error ({type(e).__name__}: {msg[:300]}). Check LLM_PROVIDER / LLM_MODEL / LLM_API_KEY."
 
 
 def _clip(s: str, n: int = 12000) -> str:

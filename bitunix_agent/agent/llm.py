@@ -5,8 +5,10 @@ Providers: openai, deepseek, openrouter, dashscope (Alibaba Model Studio / Qwen)
 """
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
+import os
 from types import SimpleNamespace as _NS
 from typing import Any
 
@@ -40,12 +42,43 @@ class LLM:
         self.timeout = 120.0
         self.client = _HttpAnthropic(self) if provider == "anthropic" else _HttpOpenAI(self)
 
+    # One LLM request at a time across chats and scheduled tasks (LLM_MAX_CONCURRENCY, default 1),
+    # so parallel tasks don't burst past a provider's per-minute limit.
+    _sem: asyncio.Semaphore | None = None
+
+    @classmethod
+    def _semaphore(cls) -> asyncio.Semaphore:
+        if cls._sem is None:
+            try:
+                n = max(1, int(float(os.getenv("LLM_MAX_CONCURRENCY", "1"))))
+            except ValueError:
+                n = 1
+            cls._sem = asyncio.Semaphore(n)
+        return cls._sem
+
     async def _post(self, url: str, headers: dict, body: dict) -> dict:
-        async with httpx.AsyncClient(timeout=self.timeout, trust_env=True) as c:
-            r = await c.post(url, headers=headers, json=body)
-        if r.status_code >= 400:
-            raise RuntimeError(f"LLM HTTP {r.status_code}: {r.text[:500]}")
-        return r.json()
+        """POST with retry: a 429 rate limit or 5xx waits (Retry-After, else 5s, 10s, 20s) and tries again.
+        A used-up quota (insufficient_quota) is not retried: waiting won't fix it."""
+        try:
+            retries = max(0, int(float(os.getenv("LLM_RETRIES", "3"))))
+        except ValueError:
+            retries = 3
+        for attempt in range(retries + 1):
+            async with self._semaphore():
+                async with httpx.AsyncClient(timeout=self.timeout, trust_env=True) as c:
+                    r = await c.post(url, headers=headers, json=body)
+            if r.status_code < 400:
+                return r.json()
+            retryable = r.status_code == 429 or r.status_code >= 500
+            if not retryable or attempt == retries or "insufficient_quota" in r.text:
+                raise RuntimeError(f"LLM HTTP {r.status_code}: {r.text[:500]}")
+            try:
+                wait = min(60.0, float(r.headers.get("retry-after", "")))
+            except ValueError:
+                wait = 5.0 * (2 ** attempt)
+            log.warning("LLM HTTP %s, retry %d/%d in %.0fs", r.status_code, attempt + 1, retries, wait)
+            await asyncio.sleep(wait)
+        raise RuntimeError("LLM request failed")
 
     async def chat(self, system: str, messages: list[dict], tools: list[dict]) -> dict:
         """Returns {'content': str, 'tool_calls': [{'id','name','arguments'}], 'raw_assistant': openai-format message}"""
